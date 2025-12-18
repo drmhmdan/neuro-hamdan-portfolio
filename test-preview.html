@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avatar Effects Preview - Dr. Mohammad Hamdan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #6366f1;
+            --color-primary-light: #818cf8;
+            --color-accent: #22d3ee;
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-tertiary: rgba(255, 255, 255, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--color-primary-light), var(--color-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .option-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .option-card:hover {
+            border-color: var(--color-primary);
+        }
+
+        .option-number {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--color-primary);
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .option-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .option-desc {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+            margin-bottom: 1.5rem;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+        }
+
+        .avatar-glow {
+            position: absolute;
+            inset: -15px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+            border-radius: 50%;
+            opacity: 0.3;
+            filter: blur(20px);
+        }
+
+        .avatar-border {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent)) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+
+        .avatar-img {
+            position: absolute;
+            inset: 4px;
+            width: calc(100% - 8px);
+            height: calc(100% - 8px);
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        /* ========================================
+           OPTION 1: Magnifier Zoom
+           ======================================== */
+        .option-1 .avatar-img {
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .option-1 .avatar-container:hover .avatar-img {
+            transform: scale(1.15);
+        }
+
+        /* ========================================
+           OPTION 2: Floating 3D Tilt
+           ======================================== */
+        .option-2 .avatar-container {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        .option-2 .tilt-wrapper {
+            position: absolute;
+            inset: 0;
+            transition: transform 0.1s ease-out;
+            transform-style: preserve-3d;
+        }
+
+        .option-2 .avatar-glow,
+        .option-2 .avatar-border,
+        .option-2 .avatar-img {
+            transform: translateZ(0);
+        }
+
+        .option-2 .avatar-container:hover .avatar-glow {
+            opacity: 0.5;
+        }
+
+        /* ========================================
+           OPTION 3: Glowing Pulse
+           ======================================== */
+        .option-3 .avatar-glow {
+            transition: all 0.3s ease;
+        }
+
+        .option-3 .avatar-container:hover .avatar-glow {
+            opacity: 0.6;
+            filter: blur(30px);
+            animation: colorShift 2s infinite, breathe 1s infinite ease-in-out;
+        }
+
+        @keyframes colorShift {
+
+            0%,
+            100% {
+                background: linear-gradient(135deg, #6366f1, #22d3ee);
+            }
+
+            33% {
+                background: linear-gradient(135deg, #22d3ee, #a855f7);
+            }
+
+            66% {
+                background: linear-gradient(135deg, #a855f7, #6366f1);
+            }
+        }
+
+        @keyframes breathe {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
+            }
+        }
+
+        /* ========================================
+           OPTION 4: Reveal Ring Animation
+           ======================================== */
+        .option-4 .ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 2px solid var(--color-primary);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .option-4 .avatar-container:hover .ring {
+            animation: ripple 1.5s infinite;
+        }
+
+        .option-4 .avatar-container:hover .ring:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .option-4 .avatar-container:hover .ring:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: scale(1.8);
+                opacity: 0;
+            }
+        }
+
+        /* ========================================
+           OPTION 5: Grayscale to Color
+           ======================================== */
+        .option-5 .avatar-img {
+            filter: grayscale(80%) contrast(1.1);
+            transition: filter 0.5s ease, transform 0.5s ease;
+        }
+
+        .option-5 .avatar-container:hover .avatar-img {
+            filter: grayscale(0%) contrast(1);
+            transform: scale(1.05);
+        }
+
+        .option-5 .avatar-glow {
+            opacity: 0.15;
+            transition: opacity 0.5s ease;
+        }
+
+        .option-5 .avatar-container:hover .avatar-glow {
+            opacity: 0.4;
+        }
+
+        /* ========================================
+           OPTION 6: Orbit Particles
+           ======================================== */
+        .option-6 .orbit-container {
+            position: absolute;
+            inset: -30px;
+            pointer-events: none;
+        }
+
+        .option-6 .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            opacity: 0;
+            box-shadow: 0 0 10px var(--color-accent);
+            transition: opacity 0.3s ease;
+        }
+
+        .option-6 .avatar-container:hover .particle {
+            opacity: 1;
+            animation: orbit 3s infinite linear;
+        }
+
+        .option-6 .particle:nth-child(2) {
+            animation-delay: -1s;
+            background: var(--color-primary-light);
+            box-shadow: 0 0 10px var(--color-primary-light);
+        }
+
+        .option-6 .particle:nth-child(3) {
+            animation-delay: -2s;
+            width: 6px;
+            height: 6px;
+        }
+
+        @keyframes orbit {
+            from {
+                transform: rotate(0deg) translateX(115px) rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg) translateX(115px) rotate(-360deg);
+            }
+        }
+
+        /* ========================================
+           OPTION 7: Split Reveal / Rotating Border
+           ======================================== */
+        .option-7 .rotating-border {
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg,
+                    var(--color-primary),
+                    var(--color-accent),
+                    var(--color-primary-light),
+                    transparent,
+                    var(--color-primary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .option-7 .avatar-container:hover .rotating-border {
+            opacity: 1;
+            animation: rotateBorder 2s linear infinite;
+        }
+
+        .option-7 .inner-mask {
+            position: absolute;
+            inset: 3px;
+            background: var(--bg-dark);
+            border-radius: 50%;
+        }
+
+        @keyframes rotateBorder {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ========================================
+           OPTION 8: Bounce & Glow Combo
+           ======================================== */
+        .option-8 .avatar-container {
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .option-8 .avatar-container:hover {
+            transform: translateY(-15px);
+        }
+
+        .option-8 .avatar-glow {
+            transition: all 0.4s ease;
+        }
+
+        .option-8 .avatar-container:hover .avatar-glow {
+            opacity: 0.6;
+            filter: blur(35px);
+            transform: translateY(10px) scale(1.2);
+        }
+
+        /* ========================================
+           OPTION 9: BONUS - Medical Heartbeat
+           (Combo: Pulse + Ring + Glow)
+           ======================================== */
+        .option-9 .avatar-container {
+            transition: transform 0.3s ease;
+        }
+
+        .option-9 .heartbeat-ring {
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .option-9 .avatar-container:hover .heartbeat-ring {
+            opacity: 1;
+            border-color: #ef4444;
+            animation: heartbeat 1s infinite;
+        }
+
+        .option-9 .avatar-container:hover .avatar-glow {
+            background: linear-gradient(135deg, #ef4444, #f97316);
+            opacity: 0.5;
+            animation: heartGlow 1s infinite;
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            15% {
+                transform: scale(1.08);
+            }
+
+            30% {
+                transform: scale(1);
+            }
+
+            45% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes heartGlow {
+
+            0%,
+            100% {
+                opacity: 0.4;
+                filter: blur(20px);
+            }
+
+            15% {
+                opacity: 0.7;
+                filter: blur(30px);
+            }
+
+            30% {
+                opacity: 0.4;
+                filter: blur(20px);
+            }
+
+            45% {
+                opacity: 0.6;
+                filter: blur(25px);
+            }
+        }
+
+        /* ========================================
+           OPTION 10: BONUS - Holographic Premium
+           (Combo: 3D Tilt + Color Shift + Particles)
+           ======================================== */
+        .option-10 .avatar-container {
+            perspective: 800px;
+        }
+
+        .option-10 .holo-wrapper {
+            position: absolute;
+            inset: 0;
+            transition: transform 0.15s ease-out;
+            transform-style: preserve-3d;
+        }
+
+        .option-10 .avatar-glow {
+            transition: all 0.3s ease;
+        }
+
+        .option-10 .avatar-container:hover .avatar-glow {
+            opacity: 0.6;
+            animation: holoShift 3s infinite;
+        }
+
+        .option-10 .holo-shine {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: linear-gradient(135deg,
+                    transparent 20%,
+                    rgba(255, 255, 255, 0.3) 50%,
+                    transparent 80%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .option-10 .avatar-container:hover .holo-shine {
+            opacity: 1;
+            animation: shineMove 2s infinite;
+        }
+
+        .option-10 .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .option-10 .avatar-container:hover .sparkle {
+            animation: sparkle 1.5s infinite;
+        }
+
+        .option-10 .sparkle:nth-child(1) {
+            top: 10%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .option-10 .sparkle:nth-child(2) {
+            top: 30%;
+            right: 15%;
+            animation-delay: 0.3s;
+        }
+
+        .option-10 .sparkle:nth-child(3) {
+            bottom: 20%;
+            left: 25%;
+            animation-delay: 0.6s;
+        }
+
+        .option-10 .sparkle:nth-child(4) {
+            bottom: 35%;
+            right: 20%;
+            animation-delay: 0.9s;
+        }
+
+        @keyframes holoShift {
+
+            0%,
+            100% {
+                background: linear-gradient(135deg, #6366f1, #22d3ee);
+            }
+
+            25% {
+                background: linear-gradient(135deg, #22d3ee, #a855f7);
+            }
+
+            50% {
+                background: linear-gradient(135deg, #a855f7, #ec4899);
+            }
+
+            75% {
+                background: linear-gradient(135deg, #ec4899, #6366f1);
+            }
+        }
+
+        @keyframes shineMove {
+            0% {
+                transform: translateX(-100%) rotate(45deg);
+            }
+
+            100% {
+                transform: translateX(100%) rotate(45deg);
+            }
+        }
+
+        @keyframes sparkle {
+
+            0%,
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 3rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--color-primary), #4f46e5);
+            color: white;
+            text-decoration: none;
+            border-radius: 999px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-tertiary);
+        }
+
+        .bonus-badge {
+            background: linear-gradient(135deg, #f59e0b, #ef4444) !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Avatar Effects Preview</h1>
+        <p>Hover over each avatar to see the effect in action. Choose your favorite!</p>
+    </div>
+
+    <div class="grid">
+        <!-- Option 1: Magnifier Zoom -->
+        <div class="option-card option-1">
+            <span class="option-number">Option 1</span>
+            <h3 class="option-title">🎯 Magnifier Zoom</h3>
+            <p class="option-desc">Classic magnification - photo scales up smoothly within the frame</p>
+            <div class="avatar-container">
+                <div class="avatar-glow"></div>
+                <div class="avatar-border"></div>
+                <img src="DSC_0843_OhneHintergrung.jpg" alt="Dr. Mohammad Hamdan" class="avatar-img">
+            </div>
+        </div>
+
+        <!-- Option 2: Floating 3D Tilt -->
+        <div class="option-card option-2">
+            <span class="option-number">Option 2</span>
+            <h3 class="option-title">🌊 Floating 3D Tilt</h3>
+            <p class="option-desc">Photo tilts in 3D following your cursor movement</p>
+            <div class="avatar-container" id="tilt-container">
+                <div class="tilt-wrapper" id="tilt-wrapper">
+                    <div class="avatar-glow"></div>
+                    <div class="avatar-border"></div>
+                    <img src="DSC_0843_OhneHintergrung.jpg" alt="Dr. Mohammad Hamdan" class="avatar-img">
+                </div>
+            </div>
+        </div>
+
+        <!-- Option 3: Glowing Pulse -->
+        <div class="option-card option-3">
+            <span class="option-number">Option 3</span>
+            <h3 class="option-title">✨ Glowing Pulse</h3>
+            <p class="option-desc">Border glow intensifies with animated color shifting</p>
+            <div class="avatar-container">
+                <div class="avatar-glow"></div>
+                <div class="avatar-border"></div>
+                <img src="DSC_0843_OhneHintergrung.jpg" alt="Dr. Mohammad Hamdan" class="avatar-img">
+            </div>
+        </div>
+
+        <!-- Option 4: Reveal Ring Animation -->
+        <div class="option-card option-4">
+            <span class="option-number">Option 4</span>
+            <h3 class="option-title">🔮 Reveal Ring Animation</h3>
+            <p class="option-desc">Animated rings expand outward like ripples in water</p>
+            <div class="avatar-container">
+                <div class="avatar-glow"></div>
+                <div class="ring"></div>
+                <div class="ring"></div>
+                <div class="ring"></div>
+                <div class="avatar-border"></div>
+                <img src="DSC_0843_OhneHintergrung.jpg" alt="Dr. Mohammad Hamdan" class="avatar-img">
+            </div>
+        </div>
+
+        <!-- Option 5: Grayscale to Color -->
+        <div class="option-card option-5">
+            <span class="option-number">Option 5</span>
+            <h3 class="option-title">🎭 Grayscale to Color</h3>
+            <p class="option-desc">Stylized grayscale reveals full color on hover</p>
+            <div class="avatar-container">
+                <div class="avatar-glow"></div>
+                <div class="avatar-border"></div>
+                <img src="DSC_0843_OhneHintergrung.jpg" alt="Dr. Mohammad Hamdan" class="avatar-img">
+            </div>
+        </div>
+
+        <!-- Option 6: Orbit Particles -->
+        <div class="option-card option-6">
+            <span class="option-number">Option 6</span>
+            <h3 class="option-title">🌀 Orbit Particles</h3>
+            <p class="option-desc">Glowing particles orbit around the photo like electrons</p>
+            <div class="avatar-container">
+                <div class="avatar-glow"></div>
+                <div class="orbit-container">
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                </div>
+                <div class="avatar-border"></div>
+                <img src="DSC_0843_OhneHintergrung.jpg" alt="Dr. Mohammad Hamdan" class="avatar-img">
+            </div>
+        </div>
+
+        <!-- Option 7: Split Reveal / Rotating Border -->
+        <div class="option-card option-7">
+            <span class="option-number">Option 7</span>
+            <h3 class="option-title">📐 Rotating Border</h3>
+            <p class="option-desc">Dynamic rotating gradient border animation</p>
+            <div class="avatar-container">
+                <div class="avatar-glow"></div>
+                <div class="rotating-border"></div>
+                <div class="inner-mask"></div>
+                <div class="avatar-border"></div>
+                <img src="DSC_0843_OhneHintergrung.jpg" alt="Dr. Mohammad Hamdan" class="avatar-img">
+            </div>
+        </div>
+
+        <!-- Option 8: Bounce & Glow Combo -->
+        <div class="option-card option-8">
+            <span class="option-number">Option 8</span>
+            <h3 class="option-title">🎪 Bounce & Glow</h3>
+            <p class="option-desc">Photo bounces up with enhanced shadow and glow</p>
+            <div class="avatar-container">
+                <div class="avatar-glow"></div>
+                <div class="avatar-border"></div>
+                <img src="DSC_0843_OhneHintergrung.jpg" alt="Dr. Mohammad Hamdan" class="avatar-img">
+            </div>
+        </div>
+
+        <!-- Option 9: BONUS - Medical Heartbeat -->
+        <div class="option-card option-9">
+            <span class="option-number bonus-badge">Bonus 9</span>
+            <h3 class="option-title">💓 Medical Heartbeat</h3>
+            <p class="option-desc">Pulse + Ring + Red glow - perfect for a doctor!</p>
+            <div class="avatar-container">
+                <div class="avatar-glow"></div>
+                <div class="heartbeat-ring"></div>
+                <div class="avatar-border"></div>
+                <img src="DSC_0843_OhneHintergrung.jpg" alt="Dr. Mohammad Hamdan" class="avatar-img">
+            </div>
+        </div>
+
+        <!-- Option 10: BONUS - Holographic Premium -->
+        <div class="option-card option-10">
+            <span class="option-number bonus-badge">Bonus 10</span>
+            <h3 class="option-title">🌈 Holographic Premium</h3>
+            <p class="option-desc">3D Tilt + Color shift + Shine + Sparkles - Ultimate luxury!</p>
+            <div class="avatar-container" id="holo-container">
+                <div class="holo-wrapper" id="holo-wrapper">
+                    <div class="avatar-glow"></div>
+                    <div class="avatar-border"></div>
+                    <img src="DSC_0843_OhneHintergrung.jpg" alt="Dr. Mohammad Hamdan" class="avatar-img">
+                    <div class="holo-shine"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <a href="index.html" class="back-link">← Back to Main Website</a>
+        <p style="margin-top: 2rem;">Once you choose an effect, let me know and I'll implement it on your main website!
+        </p>
+    </div>
+
+    <script>
+        // 3D Tilt Effect for Option 2
+        const tiltContainer = document.getElementById('tilt-container');
+        const tiltWrapper = document.getElementById('tilt-wrapper');
+
+        if (tiltContainer && tiltWrapper) {
+            tiltContainer.addEventListener('mousemove', (e) => {
+                const rect = tiltContainer.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+
+                tiltWrapper.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            tiltContainer.addEventListener('mouseleave', () => {
+                tiltWrapper.style.transform = 'rotateX(0deg) rotateY(0deg)';
+            });
+        }
+
+        // 3D Tilt Effect for Option 10 (Holographic)
+        const holoContainer = document.getElementById('holo-container');
+        const holoWrapper = document.getElementById('holo-wrapper');
+
+        if (holoContainer && holoWrapper) {
+            holoContainer.addEventListener('mousemove', (e) => {
+                const rect = holoContainer.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = (y - centerY) / 12;
+                const rotateY = (centerX - x) / 12;
+
+                holoWrapper.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            holoContainer.addEventListener('mouseleave', () => {
+                holoWrapper.style.transform = 'rotateX(0deg) rotateY(0deg)';
+            });
+        }
+    </script>
+</body>
+
+</html>

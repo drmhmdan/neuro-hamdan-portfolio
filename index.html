@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Dr. Mohammad Hamdan - Consultant Neurosurgeon specializing in Spine Surgery and Pain Management. MD, Dr. med., MHBA">
+    <meta name="keywords"
+        content="Neurosurgery, Spine Surgery, Pain Management, Mohammad Hamdan, Consultant Neurosurgeon, Germany">
+    <meta name="author" content="Dr. Mohammad Hamdan">
+    <title>Dr. Mohammad Hamdan | Consultant Neurosurgeon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="bg-gradient"></div>
+    <div class="bg-particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <span class="logo-text">MH</span>
+                <span class="logo-dot"></span>
+            </a>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#education" class="nav-link">Education</a></li>
+                <li><a href="#publications" class="nav-link">Research</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#contact" class="nav-link nav-cta">Contact</a></li>
+            </ul>
+            <!-- Theme Switcher -->
+            <div class="theme-switcher" id="theme-switcher">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <svg class="theme-icon sun" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5" />
+                        <path
+                            d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                    </svg>
+                    <svg class="theme-icon moon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
+                </button>
+                <div class="theme-dropdown" id="theme-dropdown">
+                    <button class="theme-option active" data-theme="dark">
+                        <span class="theme-preview dark-preview"></span>
+                        <span>Dark</span>
+                    </button>
+                    <button class="theme-option" data-theme="light">
+                        <span class="theme-preview light-preview"></span>
+                        <span>Light</span>
+                    </button>
+                    <button class="theme-option" data-theme="ocean">
+                        <span class="theme-preview ocean-preview"></span>
+                        <span>Ocean</span>
+                    </button>
+                    <button class="theme-option" data-theme="sunset">
+                        <span class="theme-preview sunset-preview"></span>
+                        <span>Sunset</span>
+                    </button>
+                    <button class="theme-option" data-theme="forest">
+                        <span class="theme-preview forest-preview"></span>
+                        <span>Forest</span>
+                    </button>
+                </div>
+            </div>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                <span>Consultant Neurosurgeon</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="title-line">Dr. Mohammad</span>
+                <span class="title-line title-gradient">Hamdan</span>
+            </h1>
+            <p class="hero-subtitle">MD, Dr. med., MHBA</p>
+            <p class="hero-description">
+                Specialized in Spine Surgery & Pain Management with expertise in minimally invasive techniques
+                and a passion for advancing neurosurgical care through innovation and research.
+            </p>
+            <div class="hero-cta">
+                <a href="#contact" class="btn btn-primary">
+                    <span>Get in Touch</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
+                <a href="#experience" class="btn btn-secondary">
+                    <span>View Experience</span>
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" data-count="7">0</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="4">0</span>
+                    <span class="stat-label">Publications</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="3">0</span>
+                    <span class="stat-label">Languages</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="visual-orb orb-1"></div>
+            <div class="visual-orb orb-2"></div>
+            <div class="visual-orb orb-3"></div>
+            <div class="hero-image-container">
+                <div class="image-glow"></div>
+                <div class="image-border"></div>
+                <img src="DSC_0843_OhneHintergrung.jpg" alt="Dr. Mohammad Hamdan - Consultant Neurosurgeon"
+                    class="hero-photo">
+            </div>
+        </div>
+        <a href="#about" class="scroll-indicator">
+            <span>Scroll to explore</span>
+            <div class="scroll-arrow">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M19 12l-7 7-7-7" />
+                </svg>
+            </div>
+        </a>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">About Me</span>
+                <h2 class="section-title">Dedicated to Excellence in <span class="text-gradient">Neurosurgical
+                        Care</span></h2>
+            </div>
+            <div class="about-grid">
+                <div class="about-content">
+                    <p class="about-text">
+                        As a Consultant Neurosurgeon at Johannitter Krankenhaus Duisburg, I specialize in spine surgery
+                        and pain management. My journey in medicine began with a deep commitment to patient care and
+                        has evolved through extensive training across prestigious institutions in Germany.
+                    </p>
+                    <p class="about-text">
+                        My experience with Médecins Sans Frontières treating war-wounded patients from Syria, Yemen,
+                        and Iraq has profoundly shaped my approach to medicine—combining technical excellence with
+                        compassion and resilience.
+                    </p>
+                    <div class="about-cards">
+                        <div class="about-card">
+                            <div class="card-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                                </svg>
+                            </div>
+                            <h3>Spine Surgery</h3>
+                            <p>Advanced techniques in endoscopic and minimally invasive spine procedures</p>
+                        </div>
+                        <div class="about-card">
+                            <div class="card-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path
+                                        d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83" />
+                                </svg>
+                            </div>
+                            <h3>Pain Management</h3>
+                            <p>Comprehensive approaches to chronic pain relief and patient wellbeing</p>
+                        </div>
+                        <div class="about-card">
+                            <div class="card-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path
+                                        d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-3.54" />
+                                    <path
+                                        d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-3.54" />
+                                </svg>
+                            </div>
+                            <h3>Research & Innovation</h3>
+                            <p>Pioneering novel surgical techniques and contributing to medical literature</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-info">
+                    <div class="info-card glass-card">
+                        <h4>Quick Info</h4>
+                        <ul class="info-list">
+                            <li>
+                                <span class="info-icon">📍</span>
+                                <span>Duisburg, Germany</span>
+                            </li>
+                            <li>
+                                <span class="info-icon">🏥</span>
+                                <span>Johannitter Krankenhaus</span>
+                            </li>
+                            <li>
+                                <span class="info-icon">🎓</span>
+                                <span>MD, Dr. med., MHBA</span>
+                            </li>
+                            <li>
+                                <span class="info-icon">🌍</span>
+                                <span>Arabic, German, English</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="membership-badges">
+                        <span class="badge">DGNC</span>
+                        <span class="badge">Eurospine</span>
+                        <span class="badge">EANS</span>
+                        <span class="badge">AANS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="section experience" id="experience">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Career</span>
+                <h2 class="section-title">Professional <span class="text-gradient">Experience</span></h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-marker current">
+                        <span class="pulse"></span>
+                    </div>
+                    <div class="timeline-content glass-card">
+                        <div class="timeline-header">
+                            <span class="timeline-date">02/2025 - Present</span>
+                            <span class="timeline-badge current-badge">Current</span>
+                        </div>
+                        <h3 class="timeline-title">Consultant in Neurosurgery (Oberarzt)</h3>
+                        <p class="timeline-company">Johannitter Krankenhaus Duisburg, Germany</p>
+                        <p class="timeline-description">Spine Surgery and Pain Management specialist leading complex
+                            surgical procedures and patient care initiatives.</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content glass-card">
+                        <div class="timeline-header">
+                            <span class="timeline-date">10/2024 - 12/2024</span>
+                        </div>
+                        <h3 class="timeline-title">Specialist in Neurosurgery (Facharzt)</h3>
+                        <p class="timeline-company">Klinikum Frankfurt Hoechst (Varisano), Germany</p>
+                        <p class="timeline-description">Board-certified neurosurgeon handling a wide range of
+                            neurological conditions and surgical interventions.</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content glass-card">
+                        <div class="timeline-header">
+                            <span class="timeline-date">02/2018 - 09/2024</span>
+                        </div>
+                        <h3 class="timeline-title">Resident Physician for Neurosurgery</h3>
+                        <p class="timeline-company">Mediapark-klinikum Köln, Universitätsklinikum des Saarlandes,
+                            Klinikum Frankfurt Hoechst</p>
+                        <p class="timeline-description">Comprehensive neurosurgical training across multiple prestigious
+                            German institutions, developing expertise in various surgical techniques.</p>
+                    </div>
+                </div>
+                <div class="timeline-item special" data-aos="fade-up">
+                    <div class="timeline-marker humanitarian">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                        </svg>
+                    </div>
+                    <div class="timeline-content glass-card humanitarian-card">
+                        <div class="timeline-header">
+                            <span class="timeline-date">07/2017 - 09/2017</span>
+                            <span class="timeline-badge humanitarian-badge">Humanitarian</span>
+                        </div>
+                        <h3 class="timeline-title">Médecins Sans Frontières</h3>
+                        <p class="timeline-company">Amman, Jordan</p>
+                        <p class="timeline-description">Treatment of war-wounded patients from Syria, Yemen, and Iraq.
+                            Life-changing experience in emergency care under challenging conditions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="section education" id="education">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Education</span>
+                <h2 class="section-title">Academic <span class="text-gradient">Journey</span></h2>
+            </div>
+            <div class="education-grid">
+                <div class="edu-card featured glass-card" data-aos="fade-up">
+                    <div class="edu-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                            <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                        </svg>
+                    </div>
+                    <div class="edu-content">
+                        <span class="edu-year">2025 (Submitted)</span>
+                        <h3>PhD in Medicine, Endoscopic Spine Surgery</h3>
+                        <p class="edu-institution">Justus Liebig University Giessen, Germany</p>
+                        <p class="edu-thesis">"A Novel Technique of Endoscopic Transforaminal Lumbar Intervertebral
+                            Fusion and Percutaneous Dorsal Spondylodesis"</p>
+                    </div>
+                </div>
+                <div class="edu-card glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="edu-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" />
+                            <path d="M8 21h8m-4-4v4" />
+                        </svg>
+                    </div>
+                    <div class="edu-content">
+                        <span class="edu-year">2022 - 2024</span>
+                        <h3>Master of Health Business Administration</h3>
+                        <p class="edu-institution">Friedrich-Alexander-Universität Erlangen-Nürnberg</p>
+                        <p class="edu-thesis">Thesis: "Augmented Reality (AR) in Health Care"</p>
+                    </div>
+                </div>
+                <div class="edu-card glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="edu-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                        </svg>
+                    </div>
+                    <div class="edu-content">
+                        <span class="edu-year">2022</span>
+                        <h3>European Board Examination (EANS)</h3>
+                        <p class="edu-institution">Maastricht, Netherlands</p>
+                        <p class="edu-thesis">Part 1 - Neurological Surgery</p>
+                    </div>
+                </div>
+                <div class="edu-card glass-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="edu-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                        </svg>
+                    </div>
+                    <div class="edu-content">
+                        <span class="edu-year">2010 - 2017</span>
+                        <h3>Doctor of Medicine (MD)</h3>
+                        <p class="edu-institution">University of Jordan, Amman</p>
+                        <p class="edu-thesis">GPA: 3.84/4.00 (with distinction)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="certifications">
+                <h3 class="cert-title">Certifications & Training</h3>
+                <div class="cert-list">
+                    <div class="cert-item">
+                        <span class="cert-year">2025</span>
+                        <span class="cert-name">Advanced Pain Therapy - Sylt, Germany</span>
+                    </div>
+                    <div class="cert-item">
+                        <span class="cert-year">2025</span>
+                        <span class="cert-name">Eurospine Diploma - Strasburg, France</span>
+                    </div>
+                    <div class="cert-item">
+                        <span class="cert-year">2024</span>
+                        <span class="cert-name">Neurosurgery International Master Class - Dubai, UAE</span>
+                    </div>
+                    <div class="cert-item">
+                        <span class="cert-year">2024</span>
+                        <span class="cert-name">Radiation Protection §18a RöV and §30 StrSchV (Updated)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications Section -->
+    <section class="section publications" id="publications">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Research</span>
+                <h2 class="section-title">Publications & <span class="text-gradient">Research</span></h2>
+            </div>
+            <div class="publications-grid">
+                <article class="pub-card glass-card" data-aos="fade-up">
+                    <div class="pub-type">Dissertation</div>
+                    <h3 class="pub-title">A Novel Technique of Endoscopic Transforaminal Lumbar Intervertebral Fusion
+                        and Percutaneous Dorsal Spondylodesis in Degenerative Lumbar Spinal Disorders</h3>
+                    <p class="pub-meta">2025 • PhD Thesis</p>
+                    <div class="pub-tags">
+                        <span>Endoscopic Surgery</span>
+                        <span>Spinal Fusion</span>
+                        <span>Minimally Invasive</span>
+                    </div>
+                </article>
+                <article class="pub-card glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="pub-type">Journal Article</div>
+                    <h3 class="pub-title">Vertebral Body Osteolysis 6 Years After Cervical Disk Arthroplasty</h3>
+                    <p class="pub-meta">J Neurol Surg A Cent Eur Neurosurg, 2020</p>
+                    <div class="pub-tags">
+                        <span>Cervical Spine</span>
+                        <span>Arthroplasty</span>
+                        <span>Case Study</span>
+                    </div>
+                </article>
+                <article class="pub-card glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="pub-type">Journal Article</div>
+                    <h3 class="pub-title">L-Citrulline Supplementation Reduces Plasma Arginase Activity in Type 2
+                        Diabetes Patients</h3>
+                    <p class="pub-meta">Circulation, 2015</p>
+                    <div class="pub-tags">
+                        <span>Diabetes</span>
+                        <span>Metabolism</span>
+                        <span>Clinical Trial</span>
+                    </div>
+                </article>
+                <article class="pub-card glass-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="pub-type">Journal Article</div>
+                    <h3 class="pub-title">Central Corneal Thickness in a Jordanian Population and its Association with
+                        Different Types of Glaucoma</h3>
+                    <p class="pub-meta">BMC Ophthalmology, 2018</p>
+                    <div class="pub-tags">
+                        <span>Ophthalmology</span>
+                        <span>Glaucoma</span>
+                        <span>Population Study</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section skills" id="skills">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Expertise</span>
+                <h2 class="section-title">Skills & <span class="text-gradient">Capabilities</span></h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category glass-card" data-aos="fade-up">
+                    <div class="skill-icon medical">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                        </svg>
+                    </div>
+                    <h3>Clinical Expertise</h3>
+                    <ul class="skill-list">
+                        <li>Spine Surgery</li>
+                        <li>Endoscopic Procedures</li>
+                        <li>Pain Management</li>
+                        <li>Minimally Invasive Techniques</li>
+                        <li>Neurosurgical Emergency Care</li>
+                    </ul>
+                </div>
+                <div class="skill-category glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="skill-icon tech">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg>
+                    </div>
+                    <h3>Digital Skills</h3>
+                    <ul class="skill-list">
+                        <li>Python Programming</li>
+                        <li>C++ Development</li>
+                        <li>SPSS Statistical Analysis</li>
+                        <li>fMRI Analysis (FSL)</li>
+                        <li>AI-Enabled Clinical Workflow</li>
+                        <li>Digital Health & Process Optimization</li>
+                    </ul>
+                </div>
+                <div class="skill-category glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="skill-icon lang">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M2 12h20" />
+                            <path
+                                d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                        </svg>
+                    </div>
+                    <h3>Languages</h3>
+                    <div class="language-bars">
+                        <div class="lang-item">
+                            <span class="lang-name">Arabic</span>
+                            <div class="lang-bar">
+                                <div class="lang-fill" style="width: 100%"></div>
+                            </div>
+                            <span class="lang-level">Native</span>
+                        </div>
+                        <div class="lang-item">
+                            <span class="lang-name">German</span>
+                            <div class="lang-bar">
+                                <div class="lang-fill" style="width: 85%"></div>
+                            </div>
+                            <span class="lang-level">C1</span>
+                        </div>
+                        <div class="lang-item">
+                            <span class="lang-name">English</span>
+                            <div class="lang-bar">
+                                <div class="lang-fill" style="width: 85%"></div>
+                            </div>
+                            <span class="lang-level">C1</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Awards Section -->
+    <section class="section awards" id="awards">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Recognition</span>
+                <h2 class="section-title">Awards & <span class="text-gradient">Achievements</span></h2>
+            </div>
+            <div class="awards-grid">
+                <div class="award-card glass-card" data-aos="fade-up">
+                    <div class="award-year">2010</div>
+                    <div class="award-content">
+                        <div class="award-icon">🎓</div>
+                        <h3>University Royal Scholarship</h3>
+                        <p>Scholarship for excellent academic achievement, Jordan</p>
+                    </div>
+                </div>
+                <div class="award-card glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="award-year">2014</div>
+                    <div class="award-content">
+                        <div class="award-icon">🏆</div>
+                        <h3>Demoqrati Award</h3>
+                        <p>Award for the project "A Doctor in Every House"</p>
+                    </div>
+                </div>
+                <div class="award-card glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="award-year">2015</div>
+                    <div class="award-content">
+                        <div class="award-icon">🇩🇪</div>
+                        <h3>NRW-DAAD Scholarship</h3>
+                        <p>Funded by the German Academic Exchange Service</p>
+                    </div>
+                </div>
+                <div class="award-card glass-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="award-year">2015-16</div>
+                    <div class="award-content">
+                        <div class="award-icon">💡</div>
+                        <h3>Global Experience Digital Camp</h3>
+                        <p>Social innovation projects supporting cancer patients and refugees</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <span class="section-tag">Get in Touch</span>
+                    <h2 class="section-title">Let's <span class="text-gradient">Connect</span></h2>
+                    <p class="contact-description">
+                        Whether you're interested in collaboration, research opportunities, or professional
+                        consultation,
+                        I'd be happy to hear from you.
+                    </p>
+                    <div class="contact-methods">
+                        <a href="mailto:dr.mhmdan@gmail.com" class="contact-item glass-card">
+                            <div class="contact-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">Email</span>
+                                <span class="contact-value">dr.mhmdan@gmail.com</span>
+                            </div>
+                        </a>
+
+                        <a href="https://www.linkedin.com/in/mohammad-hamdan-m-d-dr-med-mhba-aa2122216/" target="_blank"
+                            class="contact-item glass-card">
+                            <div class="contact-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">LinkedIn</span>
+                                <span class="contact-value">Mohammad Hamdan</span>
+                            </div>
+                        </a>
+                        <div class="contact-item glass-card">
+                            <div class="contact-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                    <circle cx="12" cy="10" r="3" />
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">Location</span>
+                                <span class="contact-value">Duisburg, Germany</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-visual">
+                    <div class="quote-carousel glass-card" id="quote-carousel">
+                        <div class="visual-pattern"></div>
+                        <button class="quote-nav quote-prev" id="quote-prev" aria-label="Previous quote">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M15 18l-6-6 6-6" />
+                            </svg>
+                        </button>
+                        <div class="quotes-wrapper">
+                            <div class="quotes-track" id="quotes-track">
+                                <div class="quote-slide active">
+                                    <span class="visual-quote">"The biggest innovations of the 21st century will be at
+                                        the intersection of biology and technology."</span>
+                                    <span class="visual-author">— Steve Jobs</span>
+                                </div>
+                                <div class="quote-slide">
+                                    <span class="visual-quote">"Innovation is the specific instrument of
+                                        entrepreneurship... the act that endows resources with a new capacity to create
+                                        wealth."</span>
+                                    <span class="visual-author">— Peter Drucker</span>
+                                </div>
+                                <div class="quote-slide">
+                                    <span class="visual-quote">"Medicine is not only a science; it is also an art. It
+                                        does not consist of compounding pills, but in understanding the human
+                                        mind."</span>
+                                    <span class="visual-author">— Paracelsus</span>
+                                </div>
+                                <div class="quote-slide">
+                                    <span class="visual-quote">"During the past two centuries, innovation has more than
+                                        doubled our life span and given us cheap energy and more food."</span>
+                                    <span class="visual-author">— Bill Gates</span>
+                                </div>
+                                <div class="quote-slide">
+                                    <span class="visual-quote">"Technology is nothing. What's important is that you have
+                                        faith in people, and if you give them tools, they'll do wonderful
+                                        things."</span>
+                                    <span class="visual-author">— Steve Jobs</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="quote-nav quote-next" id="quote-next" aria-label="Next quote">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M9 18l6-6-6-6" />
+                            </svg>
+                        </button>
+                        <div class="quote-dots" id="quote-dots">
+                            <button class="quote-dot active" data-index="0" aria-label="Quote 1"></button>
+                            <button class="quote-dot" data-index="1" aria-label="Quote 2"></button>
+                            <button class="quote-dot" data-index="2" aria-label="Quote 3"></button>
+                            <button class="quote-dot" data-index="3" aria-label="Quote 4"></button>
+                            <button class="quote-dot" data-index="4" aria-label="Quote 5"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="footer-logo">MH</span>
+                    <p>Dr. Mohammad Hamdan<br>Consultant Neurosurgeon</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#about">About</a>
+                    <a href="#experience">Experience</a>
+                    <a href="#education">Education</a>
+                    <a href="#publications">Research</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/in/mohammad-hamdan-m-d-dr-med-mhba-aa2122216/" target="_blank"
+                        aria-label="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                    </a>
+                    <a href="mailto:dr.mhmdan@gmail.com" aria-label="Email">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="2" y="4" width="20" height="16" rx="2" />
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Dr. Mohammad Hamdan. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
