@@ -11,3 +11,6 @@ Thumbs.db
 # IDE files
 .vscode/
 .idea/
+
+# Reference kit (borrowed patterns only, not a runtime dependency)
+cinematic-landing-kit/
