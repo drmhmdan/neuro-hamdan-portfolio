@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <script>document.documentElement.classList.remove('no-js');</script>
   <meta name="description" content="Dr. med. Mohammad Hamdan, MD, MHBA, FEBNS — Oberarzt for spine surgery and neurosurgery at Fachklinik 360° Ratingen.">
   <meta name="keywords" content="Mohammad Hamdan, neurosurgery, spine surgery, FEBNS, Fachklinik 360, Germany">
   <meta name="author" content="Dr. med. Mohammad Hamdan">
@@ -13,8 +14,8 @@
   <link rel="stylesheet" href="portfolio2026-v10.css">
   <script type="importmap">
   { "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/"
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
   } }
   </script>
 </head>
@@ -47,6 +48,7 @@
       <a href="#credentials">Credentials</a>
       <a href="#research">Research</a>
       <a href="#capabilities">Capabilities</a>
+      <a href="#contact">Contact</a>
       <a href="mailto:dr.mhmdan@gmail.com" class="nav-cta">Get in touch</a>
     </nav>
   </header>
@@ -59,7 +61,10 @@
 
       <div class="hero-image-col">
         <div class="portrait-wrap">
-          <img src="portfoioPortrait.png" alt="Dr. med. Mohammad Hamdan" loading="eager" decoding="async">
+          <picture>
+            <source srcset="portfolioPortrait.webp" type="image/webp">
+            <img src="portfolioPortrait.png" alt="Dr. med. Mohammad Hamdan" loading="eager" decoding="async">
+          </picture>
           <div class="portrait-overlay" aria-hidden="true"></div>
         </div>
       </div>
@@ -106,19 +111,19 @@
         <div class="film-vignette" aria-hidden="true"></div>
         <p class="film-eyebrow">The Signal</p>
         <div class="film-caps" id="filmCaps">
-          <div class="film-cap" data-a="0.03" data-b="0.26">
+          <div class="film-cap" data-a="0.05" data-b="0.29">
             <span class="cap-eyebrow">I. Spine Surgery</span>
             Minimally invasive and endoscopic technique, shaped by doctoral work in lumbar fusion.
           </div>
-          <div class="film-cap" data-a="0.32" data-b="0.55">
+          <div class="film-cap" data-a="0.33" data-b="0.57">
             <span class="cap-eyebrow">II. Pain Therapy</span>
             A structured, interventional approach to chronic and post-surgical spine pain.
           </div>
-          <div class="film-cap" data-a="0.61" data-b="0.84">
+          <div class="film-cap" data-a="0.60" data-b="0.84">
             <span class="cap-eyebrow">III. Clinical Innovation</span>
             Digital health, augmented reality, and AI-assisted documentation in the operating theatre.
           </div>
-          <div class="film-cap" data-a="0.88" data-b="0.99">
+          <div class="film-cap" data-a="0.86" data-b="0.99">
             <span class="cap-eyebrow">Every case</span>
             One signal, carried with precision from nerve to outcome.
           </div>
@@ -541,6 +546,8 @@ import * as THREE from 'three';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { BokehPass } from 'three/addons/postprocessing/BokehPass.js';
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 (function () {
@@ -798,12 +805,14 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
     });
   })();
 
-  /* ══════════════════ THE SIGNAL — 3D spine → brain scroll film ═══════════
-     A true 3D spine (a Catmull-Rom curve, not a flat 2D path) carries
-     vertebra points and branching nerve lines. The camera itself dollies
-     along that curve as the user scrolls — the parallax and depth this
-     produces is the whole point of going 3D; a flat canvas can only fake
-     it. Bloom runs through EffectComposer since this canvas is opaque. */
+  /* ══════════════════ THE SIGNAL — cinematic 3D spine → brain scroll film ═
+     A central sculpture (spinal cord + vertebrae + branching nerves + a
+     brain that reveals at the top) ROTATES as the user scrolls, while the
+     camera orbits it for parallax. Real lights — a hemisphere fill, a cool
+     key, a teal rim, and a traveling pulse PointLight that climbs the cord —
+     shape dimensional MeshStandard materials. A graded post chain (depth of
+     field + bloom + chromatic aberration/vignette) gives it a filmic look.
+     All procedural — no downloaded model, no paid asset. */
   (function initSignal3D() {
     const section = document.getElementById('film');
     const canvas = document.getElementById('filmCanvas');
@@ -813,42 +822,91 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
     renderer.setClearColor(0x0a0f1a, 1);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.05;
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x0a0f1a, 0.05);
-    const camera = new THREE.PerspectiveCamera(50, 1, 0.05, 60);
+    scene.fog = new THREE.FogExp2(0x0a0f1a, 0.045);
+    const camera = new THREE.PerspectiveCamera(45, 1, 0.05, 60);
 
-    // spine curve: gentle S-curve in x/z, ascending in y
+    // everything that rotates as one unit on scroll
+    const sculpture = new THREE.Group();
+    scene.add(sculpture);
+
+    // ── lights ── hemisphere fill + cool key + teal rim + traveling pulse ──
+    scene.add(new THREE.HemisphereLight(0x1a2740, 0x05070d, 0.45));
+    const keyLight = new THREE.DirectionalLight(0xbfd8ff, 0.65);
+    keyLight.position.set(-3, 4, 4);
+    scene.add(keyLight);
+    const rimLight = new THREE.DirectionalLight(0x2fd8c9, 0.5);
+    rimLight.position.set(3, 2.5, -4);
+    scene.add(rimLight);
+    const pulseLight = new THREE.PointLight(0xbfffea, 0, 3.4, 1.6); // intensity animated in place()
+    sculpture.add(pulseLight);
+
+    // spine curve: gentle S-curve in x/z, ascending in y, recentered to fit an orbiting camera
     const N = 10;
     const ctrl = [];
     for (let i = 0; i < N; i++) {
       const t = i / (N - 1);
       ctrl.push(new THREE.Vector3(
-        Math.sin(t * Math.PI * 1.3) * 1.1,
-        -6 + t * 8,
-        Math.cos(t * Math.PI * 0.9) * 0.9 - 0.9
+        Math.sin(t * Math.PI * 1.3) * 0.55,
+        -1.7 + t * 3.4,
+        Math.cos(t * Math.PI * 0.9) * 0.45 - 0.45
       ));
     }
     const spineCurve = new THREE.CatmullRomCurve3(ctrl, false, 'catmullrom', 0.5);
     const spineSamples = reduce ? 22 : 32;
     const spinePts = spineCurve.getSpacedPoints(spineSamples - 1);
 
-    const cordGeo = new THREE.TubeGeometry(spineCurve, 220, 0.045, 8, false);
-    const cordMat = new THREE.MeshBasicMaterial({ color: 0x2fd8c9, transparent: true, opacity: 0.28 });
-    scene.add(new THREE.Mesh(cordGeo, cordMat));
+    // cord tube — lit standard material (emissive teal so it glows under bloom)
+    const cordGeo = new THREE.TubeGeometry(spineCurve, 220, 0.05, 10, false);
+    const cordMat = new THREE.MeshStandardMaterial({
+      color: 0x0c3b38, emissive: 0x2fd8c9, emissiveIntensity: 0.45,
+      metalness: 0.5, roughness: 0.32
+    });
+    sculpture.add(new THREE.Mesh(cordGeo, cordMat));
 
-    // vertebra nodes — per-vertex colour so each lights independently as the pulse passes
-    const vertGeo = new THREE.BufferGeometry();
-    const vertPos = new Float32Array(spinePts.length * 3);
-    const vertCol = new Float32Array(spinePts.length * 3);
-    spinePts.forEach((p, i) => { vertPos[i * 3] = p.x; vertPos[i * 3 + 1] = p.y; vertPos[i * 3 + 2] = p.z; });
-    vertGeo.setAttribute('position', new THREE.BufferAttribute(vertPos, 3));
-    vertGeo.setAttribute('color', new THREE.BufferAttribute(vertCol, 3));
-    const vertMat = new THREE.PointsMaterial({
-      size: 0.16, map: glowSprite, alphaTest: 0.01, transparent: true,
+    // vertebrae — instanced flattened discs oriented along the curve tangent,
+    // lit so the key/rim/pulse light catches them dimensionally
+    const vertCount = reduce ? 14 : 22;
+    const vertStep = Math.max(1, Math.floor(spinePts.length / vertCount));
+    const vertGeoBase = new THREE.CylinderGeometry(0.14, 0.10, 0.06, 16);
+    const vertMat = new THREE.MeshStandardMaterial({
+      color: 0x103a36, emissive: 0x2fd8c9, emissiveIntensity: 0.12,
+      metalness: 0.6, roughness: 0.3
+    });
+    const vertInst = new THREE.InstancedMesh(vertGeoBase, vertMat, vertCount);
+    vertInst.frustumCulled = false;
+    const vertDummy = new THREE.Object3D();
+    const _yAxis = new THREE.Vector3(0, 1, 0);
+    const vertebraNodes = []; // { pos, i } — i is a spinePts index used for the pulse glow
+    for (let v = 0; v < vertCount; v++) {
+      const idx = Math.min(v * vertStep, spinePts.length - 1);
+      const p = spinePts[idx];
+      const tang = spineCurve.getTangentAt(clamp(idx / (spinePts.length - 1), 0, 1));
+      vertDummy.position.copy(p);
+      vertDummy.quaternion.setFromUnitVectors(_yAxis, tang); // align cylinder Y to the tangent
+      vertDummy.updateMatrix();
+      vertInst.setMatrixAt(v, vertDummy.matrix);
+      vertebraNodes.push({ pos: p.clone(), i: idx });
+    }
+    vertInst.instanceMatrix.needsUpdate = true;
+    sculpture.add(vertInst);
+
+    // glowing vertebra points (additive, bloom) — per-vertex colour brightens around the pulse
+    const vertGlowGeo = new THREE.BufferGeometry();
+    const vgPos = new Float32Array(vertebraNodes.length * 3);
+    const vgCol = new Float32Array(vertebraNodes.length * 3);
+    vertebraNodes.forEach((nv, i) => {
+      vgPos[i * 3] = nv.pos.x; vgPos[i * 3 + 1] = nv.pos.y; vgPos[i * 3 + 2] = nv.pos.z;
+    });
+    vertGlowGeo.setAttribute('position', new THREE.BufferAttribute(vgPos, 3));
+    vertGlowGeo.setAttribute('color', new THREE.BufferAttribute(vgCol, 3));
+    const vertGlowMat = new THREE.PointsMaterial({
+      size: 0.18, map: glowSprite, alphaTest: 0.01, transparent: true,
       vertexColors: true, blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true
     });
-    const vertPoints = new THREE.Points(vertGeo, vertMat);
-    scene.add(vertPoints);
+    sculpture.add(new THREE.Points(vertGlowGeo, vertGlowMat));
 
     // nerve branches — short segments off every third vertebra, alternating sides
     const nerveIdx = [];
@@ -859,52 +917,98 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
     nerveIdx.forEach((nv, k) => {
       const p = spinePts[nv.i];
       const tangent = spineCurve.getTangentAt(clamp(nv.i / (spinePts.length - 1), 0, 1));
-      const side = new THREE.Vector3().crossVectors(tangent, new THREE.Vector3(0, 1, 0)).normalize().multiplyScalar(nv.dir);
-      const tip = p.clone().addScaledVector(side, 0.55).add(new THREE.Vector3(0, 0.08, 0));
+      const side = new THREE.Vector3().crossVectors(tangent, _yAxis).normalize().multiplyScalar(nv.dir);
+      const tip = p.clone().addScaledVector(side, 0.42).add(new THREE.Vector3(0, 0.06, 0));
       nervePos[k * 6] = p.x; nervePos[k * 6 + 1] = p.y; nervePos[k * 6 + 2] = p.z;
       nervePos[k * 6 + 3] = tip.x; nervePos[k * 6 + 4] = tip.y; nervePos[k * 6 + 5] = tip.z;
     });
     nerveGeo.setAttribute('position', new THREE.BufferAttribute(nervePos, 3));
     nerveGeo.setAttribute('color', new THREE.BufferAttribute(nerveCol, 3));
     const nerveMat = new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: 1, blending: THREE.AdditiveBlending, depthWrite: false });
-    const nerveLines = new THREE.LineSegments(nerveGeo, nerveMat);
-    scene.add(nerveLines);
+    sculpture.add(new THREE.LineSegments(nerveGeo, nerveMat));
 
-    // pulse head
-    const pulseMesh = new THREE.Mesh(new THREE.SphereGeometry(0.075, 14, 14), new THREE.MeshBasicMaterial({ color: 0xffffff }));
-    scene.add(pulseMesh);
+    // pulse head — bright sphere carrying the traveling signal light (added to sculpture so it rides the rotating cord)
+    const pulseMesh = new THREE.Mesh(new THREE.SphereGeometry(0.08, 16, 16), new THREE.MeshBasicMaterial({ color: 0xffffff }));
+    sculpture.add(pulseMesh);
 
-    // brain, anchored brainstem-first at the spine's top
-    const brainRadius = 1.35;
+    // brain, anchored brainstem-first at the spine's top — points + edges (bloom)
+    // over a dimensional emissive core that the key light catches on reveal
+    const brainRadius = 0.85;
     const brainPts = buildBrainPoints(reduce ? 90 : 170, brainRadius, 99);
     const brainEdges = buildEdges(brainPts, 2);
     const brainGroup = new THREE.Group();
-    const brainPointsObj = makePointCluster(brainPts, { size: 0.05, opacity: 0, color: 0x7ff4e8 });
+    const brainCore = new THREE.Mesh(
+      new THREE.IcosahedronGeometry(brainRadius * 0.92, 2),
+      new THREE.MeshStandardMaterial({
+        color: 0x0a2622, emissive: 0x2fd8c9, emissiveIntensity: 0.25,
+        metalness: 0.3, roughness: 0.45, transparent: true, opacity: 0
+      })
+    );
+    const brainPointsObj = makePointCluster(brainPts, { size: 0.045, opacity: 0, color: 0x7ff4e8 });
     const brainLinesObj = makeEdgeLines(brainPts, brainEdges, { opacity: 0, color: 0x2fd8c9 });
-    brainGroup.add(brainPointsObj, brainLinesObj);
+    brainGroup.add(brainCore, brainPointsObj, brainLinesObj);
     const spineTop = spineCurve.getPointAt(1);
     brainGroup.position.copy(spineTop).add(new THREE.Vector3(0, brainRadius * 0.85, 0));
-    scene.add(brainGroup);
+    sculpture.add(brainGroup);
 
-    // sparse ambient background field, for depth
+    // sparse ambient background field, for depth (stays fixed while the sculpture rotates)
     const rand = mulberry32(5);
     const cloudPts = [];
-    for (let i = 0; i < (reduce ? 30 : 60); i++) cloudPts.push(new THREE.Vector3((rand() * 2 - 1) * 6, (rand() * 2 - 1) * 8 - 2, (rand() * 2 - 1) * 5 - 3));
+    for (let i = 0; i < (reduce ? 30 : 60); i++) cloudPts.push(new THREE.Vector3((rand() * 2 - 1) * 5, (rand() * 2 - 1) * 6 - 1, (rand() * 2 - 1) * 4 - 2));
     scene.add(makePointCluster(cloudPts, { size: 0.05, opacity: 0.14, color: 0x7ff4e8 }));
 
-    // bloom post-processing — safe and simple since this canvas is opaque
+    // ── graded post chain: render → depth of field → bloom → film grade → output ──
+    // DoF + film grade are desktop-only perf guards; mobile/reduced-motion keep render → bloom → output.
+    const isMobile = window.matchMedia('(max-width: 760px)').matches;
+    const lowDPR = (window.devicePixelRatio || 1) < 1.5;
+    const useGrade = !isMobile && !lowDPR;
+
+    const gradeShader = {
+      uniforms: {
+        tDiffuse: { value: null },
+        uVig: { value: 0.6 },
+        uCA: { value: 0.0015 }
+      },
+      vertexShader: 'varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0); }',
+      fragmentShader: [
+        'uniform sampler2D tDiffuse; uniform float uVig; uniform float uCA; varying vec2 vUv;',
+        'void main(){',
+        '  vec2 uv = vUv; vec2 d = uv - 0.5; float r = length(d);',
+        '  vec2 dir = r > 0.0001 ? d / r : vec2(0.0);',
+        '  float ca = uCA * (r * 2.0);',
+        '  vec3 col;',
+        '  col.r = texture2D(tDiffuse, uv - dir * ca).r;',
+        '  col.g = texture2D(tDiffuse, uv).g;',
+        '  col.b = texture2D(tDiffuse, uv + dir * ca).b;',
+        '  float vig = 1.0 - smoothstep(0.45, 0.85, r);',
+        '  col *= mix(1.0, vig, uVig);',
+        '  col = mix(col, col * vec3(0.94, 1.0, 1.03), 0.12);', // faint teal lift
+        '  gl_FragColor = vec4(col, 1.0);',
+        '}'
+      ].join('\n')
+    };
+
     const composer = new EffectComposer(renderer);
     composer.addPass(new RenderPass(scene, camera));
-    const bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 1.05, 0.55, 0.18);
+    let bokehPass = null;
+    if (useGrade) {
+      bokehPass = new BokehPass(scene, camera, { focus: 4.0, aperture: 0.0018, maxblur: 0.008 });
+      composer.addPass(bokehPass);
+    }
+    const bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.9, 0.5, 0.2);
     composer.addPass(bloom);
+    if (useGrade) composer.addPass(new ShaderPass(gradeShader));
     composer.addPass(new OutputPass());
 
     function resize() {
       const w = stage.clientWidth, h = stage.clientHeight;
       if (!w || !h) return;
-      renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      renderer.setPixelRatio(dpr);
       renderer.setSize(w, h, false);
       composer.setSize(w, h);
+      composer.setPixelRatio(dpr);
+      if (bokehPass) { bokehPass.setSize(w, h); bokehPass.uniforms['aspect'].value = w / h; }
       camera.aspect = w / h; camera.updateProjectionMatrix();
     }
     resize();
@@ -918,68 +1022,77 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
     });
     stage.addEventListener('pointerleave', () => { ptxT = 0; ptyT = 0; });
 
-    const worldUp = new THREE.Vector3(0, 1, 0);
+    // hoisted per-frame temporaries — never allocate inside place()
+    const _lookTarget = new THREE.Vector3();
+    const _pulsePos = new THREE.Vector3();
+
     function place(progress, t) {
       ptx += (ptxT - ptx) * 0.06;
       pty += (ptyT - pty) * 0.06;
-      const idleX = Math.sin(t * 0.12) * 0.5, idleY = Math.cos(t * 0.1) * 0.3;
+      // idle drift is auto-motion — kill it under reduced-motion; keep pointer parallax only
+      const idleX = reduce ? 0 : Math.sin(t * 0.12) * 0.5, idleY = reduce ? 0 : Math.cos(t * 0.1) * 0.3;
+      const p = clamp(progress, 0, 1);
 
-      // camera dolly: follows the curve from the side, pulling in close to
-      // the brain as progress approaches the end
-      const camT = clamp(progress, 0, 1);
-      const curvePt = spineCurve.getPointAt(camT);
-      const tangent = spineCurve.getTangentAt(camT);
-      const side = new THREE.Vector3().crossVectors(tangent, worldUp).normalize();
-      const closeIn = smoothstep(0.75, 1, camT);
-      const sideOffset = 2.1 - closeIn * 1.1;
-      const backOffset = 1.4 - closeIn * 0.6;
-      const upOffset = 0.15;
-      camera.position.copy(curvePt)
-        .addScaledVector(side, sideOffset + (ptx + idleX) * 0.4)
-        .addScaledVector(tangent, -backOffset)
-        .addScaledVector(worldUp, upOffset + (pty + idleY) * 0.25);
+      // the sculpture ROTATES with scroll (+ slow idle drift so it's never static)
+      sculpture.rotation.y = p * Math.PI * 1.5 + (reduce ? 0 : t * 0.05);
+      sculpture.rotation.x = reduce ? 0 : Math.sin(t * 0.1) * 0.02;
 
-      const aheadPt = spineCurve.getPointAt(clamp(camT + 0.06, 0, 1));
-      const lookTarget = aheadPt.clone().lerp(brainGroup.position, closeIn * 0.7);
-      camera.lookAt(lookTarget);
+      // camera orbits, sweeping opposite to the model for parallax, pulling in near the brain
+      const orbitAngle = -p * Math.PI * 0.9 + (ptx + idleX) * 0.5;
+      const radius = 5.2 - smoothstep(0.7, 1, p) * 1.8;
+      const elevation = 0.4 + p * 1.3 + (pty + idleY) * 0.3;
+      camera.position.set(Math.cos(orbitAngle) * radius, elevation, Math.sin(orbitAngle) * radius);
+      _lookTarget.set(0, -0.5 + p * 2.0, 0); // rises from spine base to the brain
+      camera.lookAt(_lookTarget);
 
-      // pulse travels the cord, slightly overrunning so it reaches the brain before the end
-      const pulseT = clamp(progress * 1.15, 0, 1);
-      pulseMesh.position.copy(spineCurve.getPointAt(pulseT));
+      // pulse travels the cord (slightly overrunning so it reaches the brain before the end)
+      const pulseT = clamp(p * 1.15, 0, 1);
+      pulseMesh.position.copy(spineCurve.getPointAt(pulseT, _pulsePos));
+      pulseLight.position.copy(pulseMesh.position);
+      pulseLight.intensity = reduce ? 2.4 : 2.4 + Math.sin(t * 6) * 0.4; // gentle flicker (off under reduced-motion)
       const litIndex = pulseT * (spinePts.length - 1);
 
-      const vertColAttr = vertGeo.attributes.color;
-      for (let i = 0; i < spinePts.length; i++) {
-        const proximity = clamp(1 - Math.abs(litIndex - i) / 3, 0, 1);
-        const lit = i <= litIndex;
+      // vertebra glow points — brighten around the pulse head
+      const vg = vertGlowGeo.attributes.color;
+      for (let i = 0; i < vertebraNodes.length; i++) {
+        const proximity = clamp(1 - Math.abs(litIndex - vertebraNodes[i].i) / 3, 0, 1);
+        const lit = vertebraNodes[i].i <= litIndex;
         const base = lit ? 0.35 + proximity * 0.65 : 0.16;
-        vertColAttr.array[i * 3] = 0.5 * base; vertColAttr.array[i * 3 + 1] = base; vertColAttr.array[i * 3 + 2] = base * 0.95;
+        vg.array[i * 3] = 0.5 * base; vg.array[i * 3 + 1] = base; vg.array[i * 3 + 2] = base * 0.95;
       }
-      vertColAttr.needsUpdate = true;
+      vg.needsUpdate = true;
 
-      const nerveColAttr = nerveGeo.attributes.color;
+      // nerves light up as the pulse passes
+      const ng = nerveGeo.attributes.color;
       nerveIdx.forEach((nv, k) => {
         const lit = nv.i <= litIndex;
         const c = lit ? 0.5 : 0.08;
         for (let v = 0; v < 2; v++) {
-          nerveColAttr.array[(k * 2 + v) * 3] = c * 0.5;
-          nerveColAttr.array[(k * 2 + v) * 3 + 1] = c;
-          nerveColAttr.array[(k * 2 + v) * 3 + 2] = c * 0.95;
+          ng.array[(k * 2 + v) * 3] = c * 0.5;
+          ng.array[(k * 2 + v) * 3 + 1] = c;
+          ng.array[(k * 2 + v) * 3 + 2] = c * 0.95;
         }
       });
-      nerveColAttr.needsUpdate = true;
+      ng.needsUpdate = true;
 
       // brain reveal
-      const reveal = smoothstep(0.6, 0.94, progress);
+      const reveal = smoothstep(0.6, 0.94, p);
       brainPointsObj.material.opacity = 0.85 * reveal;
       brainLinesObj.material.opacity = 0.16 * reveal;
+      brainCore.material.opacity = 0.5 * reveal;
       brainGroup.scale.setScalar(0.7 + 0.3 * reveal);
-      brainGroup.rotation.y = t * 0.08;
+      brainGroup.rotation.y = reduce ? 0 : t * 0.08;
+
+      // rack-focus: keep the pulse sharp, let the rest fall off
+      if (bokehPass) bokehPass.uniforms['focus'].value = camera.position.distanceTo(pulseMesh.position);
 
       composer.render();
     }
 
-    if (reduce || !hasGSAP) {
+    if (!hasGSAP) {
+      // No GSAP/ScrollTrigger → can't drive by scroll. Render a static framed
+      // view and show only the closing caption. (reduced-motion still gets the
+      // full scroll-driven scene below — the user controls it, so it stays.)
       caps.forEach((c, i) => {
         const isLast = i === caps.length - 1;
         c.style.display = isLast ? 'block' : 'none';
@@ -990,8 +1103,13 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
     }
 
     let filmProgress = 0;
+    // expose progress for diagnostics
+    window.__filmExpose = fp => { filmProgress = fp; };
+    window.__filmReadCaps = () => Array.from(document.querySelectorAll('#filmCaps .film-cap')).map(c => ({
+      a: c.dataset.a, b: c.dataset.b, display: c.style.display, opacity: +c.style.opacity
+    }));
     ScrollTrigger.create({
-      trigger: section, start: 'top top', end: 'bottom bottom', scrub: true,
+      trigger: section, start: 'top top', end: 'bottom bottom', scrub: 1.4,
       onUpdate: self => {
         filmProgress = self.progress;
         const p = filmProgress;
@@ -1002,6 +1120,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
           const vis = Math.max(0, o);
           c.style.opacity = vis;
           c.style.transform = 'translateY(' + (16 * (1 - vis)) + 'px)';
+          c.style.display = vis > 0.005 ? 'block' : 'none';
         }
       }
     });

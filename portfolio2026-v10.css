@@ -29,8 +29,9 @@ body {
   font-weight: 300;
   line-height: 1.65;
   overflow-x: hidden;
-  cursor: none;
 }
+/* Custom cursor only when JS is active; otherwise keep the native cursor. */
+html:not(.no-js) body { cursor: none; }
 
 img, canvas { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
@@ -147,11 +148,11 @@ a { color: inherit; text-decoration: none; }
 
 /* ── REVEAL ANIMATION ────────────────────────────────────── */
 .reveal-item {
-  opacity: 0;
-  transform: translateY(32px);
   transition: opacity var(--reveal-dur) var(--ease-out),
               transform var(--reveal-dur) var(--ease-out);
 }
+/* Hidden only when JS is present; if scripts fail, content stays visible. */
+html:not(.no-js) .reveal-item { opacity: 0; transform: translateY(32px); }
 .reveal-item.revealed { opacity: 1; transform: translateY(0); }
 
 /* ── HERO ────────────────────────────────────────────────── */
@@ -329,11 +330,12 @@ a { color: inherit; text-decoration: none; }
 }
 .film-cap {
   position: absolute; right: 0; bottom: 0;
-  opacity: 0; transform: translateY(16px);
   font-family: var(--ff-head); font-weight: 700;
   font-size: clamp(1.35rem, 3vw, 2.15rem); line-height: 1.32;
   color: var(--cream);
 }
+/* Hidden only when JS is present; if scripts fail, captions stay visible. */
+html:not(.no-js) .film-cap { opacity: 0; transform: translateY(16px); }
 .film-cap .cap-eyebrow {
   display: block; font-family: var(--ff-mono); font-weight: 400; font-size: .68rem;
   letter-spacing: .18em; text-transform: uppercase; color: var(--teal); margin-bottom: .6rem;
@@ -697,6 +699,6 @@ a { color: inherit; text-decoration: none; }
     transition-duration: .01ms !important;
     scroll-behavior: auto !important;
   }
-  .reveal-item { opacity: 1; transform: none; }
+  .reveal-item { opacity: 1 !important; transform: none !important; }
   .film-cap { opacity: 1 !important; transform: none !important; }
 }
