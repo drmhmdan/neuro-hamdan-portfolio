@@ -700,5 +700,4 @@ html:not(.no-js) .film-cap { opacity: 0; transform: translateY(16px); }
     scroll-behavior: auto !important;
   }
   .reveal-item { opacity: 1 !important; transform: none !important; }
-  .film-cap { opacity: 1 !important; transform: none !important; }
 }
