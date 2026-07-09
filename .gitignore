@@ -1,5 +1,9 @@
-# PDF files
+# PDF files (allow public CV download)
 *.pdf
+!Mohammad-Hamdan-CV.pdf
+
+# Local build helper (optional; safe to commit)
+# _build_assets.py
 
 # Node modules
 node_modules/
