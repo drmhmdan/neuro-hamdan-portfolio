@@ -13,7 +13,7 @@ A single-page cinematic portfolio: clinical credentials, professional path, rese
 | Path | Purpose |
 |------|---------|
 | `index.html` | Full site (markup + interaction + Three.js scenes) |
-| `portfolio2026-v10.css` | Design system and responsive layout |
+| `portfolio2026-v11.css` | Design system and responsive layout |
 | `portfolioPortrait.webp` / `.png` | Hero portrait (WebP preferred, PNG fallback) |
 | `og-image.jpg` | Open Graph / social share card (1200×630) |
 | `Mohammad-Hamdan-CV.pdf` | Downloadable curriculum vitae |

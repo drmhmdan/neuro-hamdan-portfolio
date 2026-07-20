@@ -35,8 +35,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Azeret+Mono:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="portfolio2026-v10.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Azeret+Mono:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="portfolio2026-v11.css">
   <link rel="preload" href="portfolioPortrait.webp" as="image" type="image/webp">
   <script type="importmap">
   { "imports": {
@@ -97,18 +97,43 @@
   <div class="grain" aria-hidden="true"></div>
   <div id="progress"></div>
 
+  <!-- Preloader: counter + cascading curtain. Only ever visible when JS is
+       active (CSS gates on html:not(.no-js)); a CSS failsafe force-hides it
+       after 7s no matter what, so it can never trap the page. -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="pre-inner">
+      <p class="pre-kicker">Neurosurgery · Spine · FEBNS</p>
+      <p class="pre-name"><em>Dr. med.</em> Mohammad Hamdan</p>
+      <div class="pre-bar"><span id="preBar"></span></div>
+    </div>
+    <p class="pre-count" aria-hidden="true"><span id="preCount">000</span></p>
+    <div class="pre-panel pre-panel-a" aria-hidden="true"></div>
+    <div class="pre-panel pre-panel-b" aria-hidden="true"></div>
+  </div>
+
   <!-- Custom cursor -->
-  <div id="cursor-ring"></div>
+  <div id="cursor-ring"><span id="cursorLabel"></span></div>
   <div id="cursor-dot"></div>
 
   <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Chapter rail (desktop) -->
+  <nav class="rail" aria-label="Chapters">
+    <a href="#profile"><span class="rail-num">01</span><span class="rail-track"><span class="rail-fill"></span></span><span class="rail-tip">Profile</span></a>
+    <a href="#approach"><span class="rail-num">02</span><span class="rail-track"><span class="rail-fill"></span></span><span class="rail-tip">Approach</span></a>
+    <a href="#experience"><span class="rail-num">03</span><span class="rail-track"><span class="rail-fill"></span></span><span class="rail-tip">Experience</span></a>
+    <a href="#credentials"><span class="rail-num">04</span><span class="rail-track"><span class="rail-fill"></span></span><span class="rail-tip">Credentials</span></a>
+    <a href="#research"><span class="rail-num">05</span><span class="rail-track"><span class="rail-fill"></span></span><span class="rail-tip">Research</span></a>
+    <a href="#capabilities"><span class="rail-num">06</span><span class="rail-track"><span class="rail-fill"></span></span><span class="rail-tip">Capabilities</span></a>
+    <a href="#contact"><span class="rail-num">07</span><span class="rail-track"><span class="rail-fill"></span></span><span class="rail-tip">Contact</span></a>
+  </nav>
 
   <!-- NAV -->
   <header class="site-nav" id="top">
     <a class="nav-brand" href="#top" aria-label="Home">
       <span class="brand-glyph">MH</span>
     </a>
-    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle menu">
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle menu" data-cursor="Menu">
       <span></span><span></span>
     </button>
     <nav id="nav-links" class="nav-links" aria-label="Primary">
@@ -119,17 +144,46 @@
       <a href="#research">Research</a>
       <a href="#capabilities">Capabilities</a>
       <a href="#contact">Contact</a>
-      <a href="mailto:dr.mhmdan@gmail.com" class="nav-cta">Get in touch</a>
+      <a href="mailto:dr.mhmdan@gmail.com" class="nav-cta" data-magnetic data-cursor="Email">Get in touch</a>
     </nav>
   </header>
 
   <main id="main">
 
     <!-- ═══ HERO ═══════════════════════════════════════════════════════════ -->
-    <section class="hero" aria-label="Introduction" data-ambient="#05070d" data-glow=".55">
+    <section class="hero" aria-label="Introduction" data-ambient="#05070d" data-glow=".6">
       <canvas id="heroCanvas" aria-hidden="true"></canvas>
 
-      <div class="hero-image-col">
+      <div class="hero-content">
+        <div class="hero-meta">
+          <span class="reveal-item">Fachklinik 360° — Ratingen, DE</span>
+          <span class="reveal-item">Oberarzt · Spine Surgery &amp; Neurosurgery</span>
+          <span class="reveal-item">Local time · <span class="js-time">--:--</span></span>
+        </div>
+
+        <h1 class="hero-name">
+          <span class="hn-line" style="--i:0"><span class="hn-inner"><em>Dr. med.</em></span></span>
+          <span class="hn-line" style="--i:1"><span class="hn-inner">Mohammad</span></span>
+          <span class="hn-line" style="--i:2"><span class="hn-inner">Hamdan<span class="hn-dot">.</span></span></span>
+        </h1>
+
+        <p class="hero-quals reveal-item">MD &nbsp;·&nbsp; MHBA &nbsp;·&nbsp; FEBNS</p>
+        <p class="hero-lede reveal-item">
+          Minimally invasive spine care, pain therapy, research translation, and practical digital health — one disciplined decision at a time.
+        </p>
+        <div class="hero-langs reveal-item" aria-label="Languages">
+          <span>Arabic · native</span>
+          <span>German · C1</span>
+          <span>English · C1</span>
+        </div>
+        <div class="hero-ctas reveal-item">
+          <a href="mailto:dr.mhmdan@gmail.com" class="cta-primary" data-magnetic data-cursor="Say hello">Email Dr. Hamdan</a>
+          <a href="Mohammad-Hamdan-CV.pdf" class="cta-ghost" data-magnetic download>Download CV</a>
+          <a href="https://www.linkedin.com/in/mohammad-hamdan-m-d-dr-med-mhba-febns-aa2122216/" class="cta-ghost" data-magnetic target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </div>
+
+      <div class="hero-portrait reveal-clip">
         <div class="portrait-stage" id="portraitStage">
           <div class="portrait-aura" aria-hidden="true"></div>
           <div class="portrait-wrap" id="portraitWrap">
@@ -140,29 +194,6 @@
             <div class="portrait-sheen" aria-hidden="true"></div>
             <div class="portrait-overlay" aria-hidden="true"></div>
           </div>
-        </div>
-      </div>
-
-      <div class="hero-text-col">
-        <p class="hero-overline reveal-item">Fachklinik 360° · Ratingen · Since 02/2026</p>
-        <h1 class="hero-name reveal-item">
-          <em>Dr. med.</em><br>
-          Mohammad<br>
-          Hamdan
-        </h1>
-        <p class="hero-quals reveal-item">MD &nbsp;·&nbsp; MHBA &nbsp;·&nbsp; FEBNS</p>
-        <p class="hero-lede reveal-item">
-          Oberarzt for spine surgery and neurosurgery — minimally invasive care, pain therapy, research translation, and practical digital health.
-        </p>
-        <div class="hero-langs reveal-item" aria-label="Languages">
-          <span>Arabic · native</span>
-          <span>German · C1</span>
-          <span>English · C1</span>
-        </div>
-        <div class="hero-ctas reveal-item">
-          <a href="mailto:dr.mhmdan@gmail.com" class="cta-primary">Email Dr. Hamdan</a>
-          <a href="Mohammad-Hamdan-CV.pdf" class="cta-ghost" download>Download CV</a>
-          <a href="https://www.linkedin.com/in/mohammad-hamdan-m-d-dr-med-mhba-febns-aa2122216/" class="cta-ghost" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
       </div>
 
@@ -186,10 +217,11 @@
 
     <!-- ═══ SIGNAL (neural network film) ═══════════════════════════════════ -->
     <section class="section-film" id="film" data-ambient="#0a0f1a" data-glow=".75">
-      <div class="film-stage">
+      <div class="film-stage" data-cursor="Scroll">
         <canvas id="filmCanvas"></canvas>
         <div class="film-vignette" aria-hidden="true"></div>
         <p class="film-eyebrow">The Signal</p>
+        <div class="film-rail" aria-hidden="true"><span class="film-rail-fill" id="filmRailFill"></span></div>
         <div class="film-caps" id="filmCaps">
           <div class="film-cap" data-a="0.03" data-b="0.26">
             <span class="cap-eyebrow">I. Spine Surgery</span>
@@ -212,13 +244,27 @@
       </div>
     </section>
 
+    <!-- ═══ STATEMENT (word-by-word scroll scrub) ══════════════════════════ -->
+    <section class="section-statement" id="statement" data-ambient="#070b13" data-glow=".5">
+      <div class="statement-inner">
+        <p class="statement-eyebrow reveal-item" data-scramble>The conviction</p>
+        <p class="statement-text" id="statementText">The nervous system is medicine’s last frontier. I work where it meets the spine — restoring <em>signal</em>, <em>motion</em>, and ordinary life.</p>
+      </div>
+    </section>
+
     <!-- ═══ PROFILE ══════════════════════════════════════════════════════ -->
     <section class="section-profile" id="profile" data-ambient="#05070d" data-glow=".45">
-      <div class="profile-number reveal-item" aria-hidden="true">01</div>
       <div class="profile-inner">
-        <header class="section-header reveal-item">
-          <p class="section-label">Profile</p>
-          <h2>Clinical precision with an academic and digital horizon.</h2>
+        <header class="section-header">
+          <div class="sh-row reveal-item">
+            <span class="sh-index">01</span>
+            <span class="sh-rule" aria-hidden="true"></span>
+            <p class="section-label" data-scramble>Profile</p>
+          </div>
+          <h2 class="sh-title">
+            <span class="sh-line" style="--i:0"><span class="sh-inner">Clinical precision with an</span></span>
+            <span class="sh-line" style="--i:1"><span class="sh-inner">academic and <em>digital horizon.</em></span></span>
+          </h2>
         </header>
         <div class="profile-body">
           <article class="profile-text reveal-item">
@@ -226,19 +272,19 @@
             <p>Humanitarian work with Médecins Sans Frontières in Amman — treating war-wounded patients from Syria, Yemen, and Iraq — remains a defining influence: technical discipline matters most when paired with resilience, clarity, and compassion.</p>
           </article>
           <div class="profile-glance reveal-item" aria-label="At a glance">
-            <div class="glance-item">
+            <div class="glance-item glow-card">
               <span class="glance-label">Based</span>
               <span class="glance-value">Ratingen · Germany</span>
             </div>
-            <div class="glance-item">
+            <div class="glance-item glow-card">
               <span class="glance-label">Board</span>
               <span class="glance-value">FEBNS · Barcelona 2026</span>
             </div>
-            <div class="glance-item">
+            <div class="glance-item glow-card">
               <span class="glance-label">Focus</span>
               <span class="glance-value">Spine · Pain · Innovation</span>
             </div>
-            <div class="glance-item">
+            <div class="glance-item glow-card">
               <span class="glance-label">Languages</span>
               <span class="glance-value">AR · DE · EN</span>
             </div>
@@ -249,24 +295,30 @@
 
     <!-- ═══ APPROACH (narrative middle beat) ═══════════════════════════════ -->
     <section class="section-approach" id="approach" data-ambient="#0c121f" data-glow=".5">
-      <div class="approach-number reveal-item" aria-hidden="true">02</div>
       <div class="approach-inner">
-        <header class="section-header reveal-item">
-          <p class="section-label">Approach</p>
-          <h2>How I think in the theatre — and beyond it.</h2>
+        <header class="section-header">
+          <div class="sh-row reveal-item">
+            <span class="sh-index">02</span>
+            <span class="sh-rule" aria-hidden="true"></span>
+            <p class="section-label" data-scramble>Approach</p>
+          </div>
+          <h2 class="sh-title">
+            <span class="sh-line" style="--i:0"><span class="sh-inner">How I think in the theatre —</span></span>
+            <span class="sh-line" style="--i:1"><span class="sh-inner"><em>and beyond it.</em></span></span>
+          </h2>
         </header>
         <div class="approach-grid">
-          <article class="approach-card reveal-item">
+          <article class="approach-card glow-card reveal-item">
             <span class="approach-tag">Clinical philosophy</span>
             <h3>Clarity before incision.</h3>
             <p>Every case begins with a disciplined read of the signal: anatomy, pain pattern, imaging, and the patient’s own thresholds for risk. Minimally invasive and endoscopic technique is a means — not a slogan — chosen when it protects tissue, recovery, and long-term motion without compromising safety.</p>
           </article>
-          <article class="approach-card reveal-item">
+          <article class="approach-card glow-card reveal-item">
             <span class="approach-tag">Pain &amp; recovery</span>
             <h3>Surgery is one chapter of care.</h3>
             <p>Interventional spine thinking and structured pain therapy shape how I plan pre- and post-operatively. The goal is durable function: less pain, clearer decisions, and a path back to ordinary life that patients can understand and trust.</p>
           </article>
-          <article class="approach-card featured reveal-item">
+          <article class="approach-card featured glow-card reveal-item">
             <span class="approach-tag">Clinical innovation</span>
             <h3>Digital tools that earn their place in care.</h3>
             <p>Augmented reality, AI-assisted documentation, and GDPR-aware workflow design only matter if they reduce friction for surgeons and protect patients. My MHBA thesis on AR in healthcare and day-to-day work with clinical AI keep that standard practical: better signal, less noise, no theatre of tech for its own sake.</p>
@@ -281,10 +333,15 @@
 
     <!-- ═══ EXPERIENCE ════════════════════════════════════════════════════ -->
     <section class="section-experience" id="experience" data-ambient="#0a0f1a" data-glow=".4">
-      <div class="exp-number reveal-item" aria-hidden="true">03</div>
-      <header class="section-header reveal-item">
-        <p class="section-label">Experience</p>
-        <h2>Professional path</h2>
+      <header class="section-header">
+        <div class="sh-row reveal-item">
+          <span class="sh-index">03</span>
+          <span class="sh-rule" aria-hidden="true"></span>
+          <p class="section-label" data-scramble>Experience</p>
+        </div>
+        <h2 class="sh-title">
+          <span class="sh-line" style="--i:0"><span class="sh-inner">The professional <em>path.</em></span></span>
+        </h2>
       </header>
 
       <div class="timeline-v9">
@@ -341,43 +398,50 @@
 
     <!-- ═══ CREDENTIALS ═══════════════════════════════════════════════════ -->
     <section class="section-credentials" id="credentials" data-ambient="#05070d" data-glow=".45">
-      <div class="cred-number reveal-item" aria-hidden="true">04</div>
-      <header class="section-header reveal-item">
-        <p class="section-label">Education &amp; Qualifications</p>
-        <h2>Credentials that connect clinical practice, research, and management.</h2>
+      <header class="section-header">
+        <div class="sh-row reveal-item">
+          <span class="sh-index">04</span>
+          <span class="sh-rule" aria-hidden="true"></span>
+          <p class="section-label" data-scramble>Education &amp; Qualifications</p>
+        </div>
+        <h2 class="sh-title">
+          <span class="sh-line" style="--i:0"><span class="sh-inner">Credentials that connect</span></span>
+          <span class="sh-line" style="--i:1"><span class="sh-inner">clinical practice, research,</span></span>
+          <span class="sh-line" style="--i:2"><span class="sh-inner"><em>and management.</em></span></span>
+        </h2>
       </header>
       <div class="cred-grid">
-        <article class="cred-card large reveal-item">
+        <article class="cred-card large glow-card reveal-item">
           <span class="cred-year">02 / 2025</span>
           <h3>Doctorate in Medicine</h3>
           <p>Justus Liebig University Giessen, Germany</p>
           <small>Dissertation on a novel endoscopic transforaminal lumbar intervertebral fusion technique.</small>
         </article>
-        <article class="cred-card reveal-item">
+        <article class="cred-card glow-card reveal-item">
           <span class="cred-year">2022 – 2024</span>
           <h3>Master of Health Business Administration</h3>
           <p>FAU Erlangen-Nürnberg, Germany</p>
           <small>Thesis: Augmented Reality in health care.</small>
         </article>
-        <article class="cred-card reveal-item">
+        <article class="cred-card glow-card reveal-item">
           <span class="cred-year">04 / 2026</span>
           <h3>FEBNS</h3>
           <p>European Board of Neurological Surgery</p>
           <small>Fellowship milestone completed in Barcelona.</small>
         </article>
-        <article class="cred-card reveal-item">
+        <article class="cred-card glow-card reveal-item">
           <span class="cred-year">01 – 04 / 2026</span>
           <h3>Eurospine Diploma &amp; DWG Basis Certificate</h3>
           <p>Spine-focused European qualifications</p>
           <small>Eurospine Diploma in Strasbourg and DWG Basis Certificate.</small>
         </article>
-        <article class="cred-card reveal-item">
+        <article class="cred-card glow-card reveal-item">
           <span class="cred-year">08 / 2022</span>
           <h3>EANS Board Examination, Part I</h3>
           <p>Maastricht, Netherlands</p>
           <small>European neurosurgical examination milestone.</small>
         </article>
-        <article class="cred-card reveal-item">
+        <article class="cred-card glow-card reveal-item">
           <span class="cred-year">2010 – 2017</span>
           <h3>Doctor of Medicine</h3>
           <p>University of Jordan, Amman</p>
@@ -401,36 +465,43 @@
 
     <!-- ═══ RESEARCH ══════════════════════════════════════════════════════ -->
     <section class="section-research" id="research" data-ambient="#0a0f1a" data-glow=".4">
-      <header class="section-header reveal-item">
-        <div class="res-number reveal-item" aria-hidden="true">05</div>
-        <p class="section-label">Publications &amp; Research</p>
-        <h2>Research shaped by spine surgery, clinical outcomes, and early scientific breadth.</h2>
+      <header class="section-header">
+        <div class="sh-row reveal-item">
+          <span class="sh-index">05</span>
+          <span class="sh-rule" aria-hidden="true"></span>
+          <p class="section-label" data-scramble>Publications &amp; Research</p>
+        </div>
+        <h2 class="sh-title">
+          <span class="sh-line" style="--i:0"><span class="sh-inner">Research shaped by spine surgery,</span></span>
+          <span class="sh-line" style="--i:1"><span class="sh-inner">clinical outcomes, and early</span></span>
+          <span class="sh-line" style="--i:2"><span class="sh-inner"><em>scientific breadth.</em></span></span>
+        </h2>
       </header>
 
       <div class="research-hscroll-wrap">
-        <div class="research-hscroll">
-          <article class="rcard reveal-item">
+        <div class="research-hscroll" data-cursor="Drag">
+          <article class="rcard glow-card reveal-item">
             <span class="rcard-num" aria-hidden="true">01</span>
             <p class="rcard-source">Dissertation · JLU Giessen · 2025</p>
             <h3>A Novel Technique of Endoscopic Transforaminal Lumbar Intervertebral Fusion and Percutaneous Dorsal Spondylodesis in Degenerative Lumbar Spinal Disorders</h3>
             <p class="rcard-meta">Doctoral thesis · Prof. Dr. med. Kartik Krishnan</p>
             <span class="rcard-cta rcard-cta-static">Institutional copy on request</span>
           </article>
-          <a class="rcard rcard-link reveal-item" href="https://doi.org/10.1055/s-0039-1698435" target="_blank" rel="noopener noreferrer">
+          <a class="rcard rcard-link glow-card reveal-item" href="https://doi.org/10.1055/s-0039-1698435" target="_blank" rel="noopener noreferrer" data-cursor="Open ↗">
             <span class="rcard-num" aria-hidden="true">02</span>
             <p class="rcard-source">J Neurol Surg A Cent Eur Neurosurg · 2020</p>
             <h3>Vertebral Body Osteolysis 6 Years After Cervical Disk Arthroplasty</h3>
             <p class="rcard-meta">DOI · 10.1055/s-0039-1698435 · PubMed 31962353</p>
             <span class="rcard-cta">Open publication →</span>
           </a>
-          <a class="rcard rcard-link reveal-item" href="https://doi.org/10.1161/circ.132.suppl_3.15199" target="_blank" rel="noopener noreferrer">
+          <a class="rcard rcard-link glow-card reveal-item" href="https://doi.org/10.1161/circ.132.suppl_3.15199" target="_blank" rel="noopener noreferrer" data-cursor="Open ↗">
             <span class="rcard-num" aria-hidden="true">03</span>
             <p class="rcard-source">Circulation · 2015</p>
             <h3>L-Citrulline Supplementation Reduces Plasma Arginase Activity in Type 2 Diabetes Patients</h3>
             <p class="rcard-meta">DOI · 10.1161/circ.132.suppl_3.15199</p>
             <span class="rcard-cta">Open abstract →</span>
           </a>
-          <a class="rcard rcard-link reveal-item" href="https://pubmed.ncbi.nlm.nih.gov/30373555/" target="_blank" rel="noopener noreferrer">
+          <a class="rcard rcard-link glow-card reveal-item" href="https://pubmed.ncbi.nlm.nih.gov/30373555/" target="_blank" rel="noopener noreferrer" data-cursor="Open ↗">
             <span class="rcard-num" aria-hidden="true">04</span>
             <p class="rcard-source">BMC Ophthalmology · 2018</p>
             <h3>Central Corneal Thickness in a Jordanian Population and its Association with Different Types of Glaucoma</h3>
@@ -443,27 +514,33 @@
 
     <!-- ═══ CAPABILITIES ══════════════════════════════════════════════════ -->
     <section class="section-capabilities" id="capabilities" data-ambient="#05070d" data-glow=".4">
-      <div class="cap-number reveal-item" aria-hidden="true">06</div>
-      <header class="section-header reveal-item">
-        <p class="section-label">Capabilities</p>
-        <h2>Clinical strength, multilingual practice, tools that serve the case.</h2>
+      <header class="section-header">
+        <div class="sh-row reveal-item">
+          <span class="sh-index">06</span>
+          <span class="sh-rule" aria-hidden="true"></span>
+          <p class="section-label" data-scramble>Capabilities</p>
+        </div>
+        <h2 class="sh-title">
+          <span class="sh-line" style="--i:0"><span class="sh-inner">Clinical strength, multilingual practice,</span></span>
+          <span class="sh-line" style="--i:1"><span class="sh-inner"><em>tools that serve the case.</em></span></span>
+        </h2>
       </header>
       <div class="lang-bar reveal-item" aria-label="Working languages">
-        <div class="lang-item">
+        <div class="lang-item glow-card">
           <span class="lang-code">AR</span>
           <div>
             <strong>Arabic</strong>
             <span>Native · patient &amp; family communication</span>
           </div>
         </div>
-        <div class="lang-item">
+        <div class="lang-item glow-card">
           <span class="lang-code">DE</span>
           <div>
             <strong>German</strong>
             <span>C1 · clinical practice in Germany</span>
           </div>
         </div>
-        <div class="lang-item">
+        <div class="lang-item glow-card">
           <span class="lang-code">EN</span>
           <div>
             <strong>English</strong>
@@ -521,26 +598,46 @@
       </div>
     </section>
 
+    <!-- ═══ MARQUEE INTERSTITIAL ═══════════════════════════════════════════ -->
+    <section class="section-marquee" data-ambient="#0c1424" data-glow=".55" aria-hidden="true">
+      <div class="cta-marquee">
+        <div class="cta-marquee-track">
+          <span class="mq-solid">Spine Surgery</span><span class="mq-star">✦</span>
+          <span class="mq-line">Pain Therapy</span><span class="mq-star">✦</span>
+          <span class="mq-solid">Clinical Innovation</span><span class="mq-star">✦</span>
+          <span class="mq-line">Research Translation</span><span class="mq-star">✦</span>
+          <span class="mq-solid" aria-hidden="true">Spine Surgery</span><span class="mq-star" aria-hidden="true">✦</span>
+          <span class="mq-line" aria-hidden="true">Pain Therapy</span><span class="mq-star" aria-hidden="true">✦</span>
+          <span class="mq-solid" aria-hidden="true">Clinical Innovation</span><span class="mq-star" aria-hidden="true">✦</span>
+          <span class="mq-line" aria-hidden="true">Research Translation</span><span class="mq-star" aria-hidden="true">✦</span>
+        </div>
+      </div>
+    </section>
+
     <!-- ═══ CONTACT ═══════════════════════════════════════════════════════ -->
     <section class="section-contact" id="contact" data-ambient="#111a2c" data-glow=".55">
       <canvas id="contactCanvas" aria-hidden="true"></canvas>
       <div class="contact-inner">
-        <p class="section-label reveal-item">Contact</p>
-        <h2 class="contact-headline reveal-item">For research exchange, professional collaboration, and clinical innovation.</h2>
-        <a class="contact-email reveal-item" href="mailto:dr.mhmdan@gmail.com">
-          <span class="email-text">dr.mhmdan@gmail.com</span>
+        <p class="section-label reveal-item" data-scramble>Contact — 07</p>
+        <h2 class="contact-headline">
+          <span class="sh-line" style="--i:0"><span class="sh-inner">For research exchange,</span></span>
+          <span class="sh-line" style="--i:1"><span class="sh-inner">professional collaboration,</span></span>
+          <span class="sh-line" style="--i:2"><span class="sh-inner"><em>and clinical innovation.</em></span></span>
+        </h2>
+        <a class="contact-email reveal-item" href="mailto:dr.mhmdan@gmail.com" data-magnetic data-cursor="Say hello">
+          <span class="fx-fill" data-text="dr.mhmdan@gmail.com">dr.mhmdan@gmail.com</span>
           <span class="email-arrow" aria-hidden="true">→</span>
         </a>
         <div class="contact-actions reveal-item">
-          <a class="contact-action" href="https://www.linkedin.com/in/mohammad-hamdan-m-d-dr-med-mhba-febns-aa2122216/" target="_blank" rel="noopener noreferrer">
+          <a class="contact-action glow-card" href="https://www.linkedin.com/in/mohammad-hamdan-m-d-dr-med-mhba-febns-aa2122216/" target="_blank" rel="noopener noreferrer" data-cursor="Open ↗">
             <span class="contact-action-label">Professional network</span>
             <span class="contact-action-value">LinkedIn profile →</span>
           </a>
-          <a class="contact-action" href="Mohammad-Hamdan-CV.pdf" download>
+          <a class="contact-action glow-card" href="Mohammad-Hamdan-CV.pdf" download data-cursor="Download">
             <span class="contact-action-label">Curriculum vitae</span>
             <span class="contact-action-value">Download PDF →</span>
           </a>
-          <a class="contact-action" href="https://www.med360grad.de/leistungsangebot/fachklinik/" target="_blank" rel="noopener noreferrer">
+          <a class="contact-action glow-card" href="https://www.med360grad.de/leistungsangebot/fachklinik/" target="_blank" rel="noopener noreferrer" data-cursor="Open ↗">
             <span class="contact-action-label">Clinical appointments</span>
             <span class="contact-action-value">Fachklinik 360° →</span>
           </a>
@@ -552,11 +649,15 @@
   </main>
 
   <footer class="site-footer">
-    <p>© <span id="year"></span> Dr. med. Mohammad Hamdan · MD, MHBA, FEBNS · <a href="https://neuro-hamdan.tech/">neuro-hamdan.tech</a></p>
-    <div class="footer-links">
-      <a href="Mohammad-Hamdan-CV.pdf" download>CV</a>
-      <a href="https://www.linkedin.com/in/mohammad-hamdan-m-d-dr-med-mhba-febns-aa2122216/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a href="#top" class="back-top">↑ Top</a>
+    <div class="footer-word" aria-hidden="true"><span>Hamdan<em>.</em></span></div>
+    <div class="footer-row">
+      <p>© <span id="year"></span> Dr. med. Mohammad Hamdan · MD, MHBA, FEBNS · <a href="https://neuro-hamdan.tech/">neuro-hamdan.tech</a></p>
+      <p class="footer-meta">Ratingen, Germany — <span class="js-time">--:--</span></p>
+      <div class="footer-links">
+        <a href="Mohammad-Hamdan-CV.pdf" download>CV</a>
+        <a href="https://www.linkedin.com/in/mohammad-hamdan-m-d-dr-med-mhba-febns-aa2122216/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="#top" class="back-top" data-cursor="Top ↑">↑ Top</a>
+      </div>
     </div>
   </footer>
 
@@ -569,17 +670,57 @@
   "use strict";
 
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
   const hasGSAP = typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined";
   if (hasGSAP) gsap.registerPlugin(ScrollTrigger);
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
-  const smoothstep = (e0, e1, x) => { const t = clamp((x - e0) / (e1 - e0), 0, 1); return t * t * (3 - 2 * t); };
 
-  /* ── Year ── */
+  /* ── Boot sequence: preloader counter → cascading curtain → page ──
+     window.__boot resolves once the curtain has lifted; everything that
+     should animate "on arrival" (reveals, hero 3D intro) waits for it. */
+  let bootResolve;
+  const boot = new Promise(res => { bootResolve = res; });
+  window.__boot = boot;
+  const preloader = document.getElementById('preloader');
+  document.documentElement.classList.add('is-loading');
+
+  function finishBoot() {
+    document.documentElement.classList.remove('is-loading');
+    bootResolve();
+  }
+
+  if (!preloader || reduce) {
+    if (preloader) preloader.remove();
+    finishBoot();
+  } else {
+    const countEl = document.getElementById('preCount');
+    const barEl = document.getElementById('preBar');
+    const D = 1150, t0 = performance.now();
+    (function step(now) {
+      const p = clamp((now - t0) / D, 0, 1);
+      const e = 1 - Math.pow(1 - p, 3);
+      if (countEl) countEl.textContent = String(Math.round(e * 100)).padStart(3, '0');
+      if (barEl) barEl.style.transform = 'scaleX(' + e + ')';
+      if (p < 1) { requestAnimationFrame(step); return; }
+      preloader.classList.add('pre-done');
+      setTimeout(() => { preloader.remove(); finishBoot(); }, 1100);
+    })(t0);
+  }
+
+  /* ── Year + live local time (Europe/Berlin) ── */
   document.getElementById('year').textContent = new Date().getFullYear();
+  const timeFmt = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' });
+  function tickTime() {
+    const t = timeFmt.format(new Date());
+    document.querySelectorAll('.js-time').forEach(el => { el.textContent = t; });
+  }
+  tickTime();
+  setInterval(tickTime, 20000);
 
-  /* ── Custom cursor ── */
+  /* ── Custom cursor: trailing ring + contextual label pill ── */
   const ring = document.getElementById('cursor-ring');
   const dot  = document.getElementById('cursor-dot');
+  const cursorLabel = document.getElementById('cursorLabel');
   let mx = -200, my = -200, rx = -200, ry = -200;
 
   document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
@@ -588,20 +729,55 @@
   ;(function tickCursor() {
     rx += (mx - rx) * 0.14;
     ry += (my - ry) * 0.14;
-    ring.style.transform = `translate(${rx - 20}px,${ry - 20}px)`;
+    ring.style.transform = `translate(${rx}px,${ry}px)`;
     dot.style.transform  = `translate(${mx - 4}px,${my - 4}px)`;
     requestAnimationFrame(tickCursor);
   })();
 
-  document.querySelectorAll('a, button, .rcard-link, .contact-action').forEach(el => {
+  document.querySelectorAll('a, button').forEach(el => {
     el.addEventListener('mouseenter', () => ring.classList.add('ring-grow'));
     el.addEventListener('mouseleave', () => ring.classList.remove('ring-grow'));
   });
+  document.querySelectorAll('[data-cursor]').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursorLabel.textContent = el.getAttribute('data-cursor');
+      ring.classList.add('has-label');
+    });
+    el.addEventListener('mouseleave', () => ring.classList.remove('has-label'));
+  });
+
+  /* ── Magnetic elements (desktop, motion OK) ── */
+  if (!reduce && finePointer) {
+    document.querySelectorAll('[data-magnetic]').forEach(el => {
+      el.addEventListener('pointermove', e => {
+        const r = el.getBoundingClientRect();
+        const dx = e.clientX - (r.left + r.width / 2);
+        const dy = e.clientY - (r.top + r.height / 2);
+        el.style.transition = 'transform .12s ease-out';
+        el.style.transform = `translate(${dx * 0.22}px,${dy * 0.22}px)`;
+      });
+      el.addEventListener('pointerleave', () => {
+        el.style.transition = 'transform .55s cubic-bezier(.2,.9,.25,1.2)';
+        el.style.transform = '';
+      });
+    });
+  }
+
+  /* ── Card glow-follow (pointer-tracked radial highlight) ── */
+  if (finePointer) {
+    document.querySelectorAll('.glow-card').forEach(card => {
+      card.addEventListener('pointermove', e => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+        card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+      });
+    });
+  }
 
   /* ── Living portrait: subtle 3D tilt + sheen (desktop, motion OK) ── */
   const portraitStage = document.getElementById('portraitStage');
   const portraitWrap = document.getElementById('portraitWrap');
-  if (portraitStage && portraitWrap && !reduce && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  if (portraitStage && portraitWrap && !reduce && finePointer) {
     let ptx = 0, pty = 0, pctx = 0, pcty = 0;
     portraitStage.addEventListener('pointermove', e => {
       const r = portraitStage.getBoundingClientRect();
@@ -643,6 +819,8 @@
     gsap.ticker.add(t => lenis.raf(t * 1000));
     gsap.ticker.lagSmoothing(0);
     window.lenis = lenis;
+    lenis.stop();
+    boot.then(() => lenis.start());
     document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener("click", e => {
       const t = document.querySelector(a.getAttribute("href"));
       if (t) { e.preventDefault(); lenis.scrollTo(t, { offset: 0 }); }
@@ -690,22 +868,148 @@
     }
   });
 
-  /* ── Scroll-reveal with IntersectionObserver ── */
-  const revealEls = document.querySelectorAll('.reveal-item');
+  /* ── Text scramble (section eyebrows resolve out of static) ── */
+  const GLYPHS = '—+·<>/\\|=';
+  function scramble(el) {
+    if (reduce || el.__scrambled) return;
+    el.__scrambled = true;
+    const original = el.textContent;
+    const dur = 620, t0 = performance.now(), n = original.length;
+    (function fr(now) {
+      const p = clamp((now - t0) / dur, 0, 1);
+      const settled = Math.floor(p * n);
+      let out = '';
+      for (let i = 0; i < n; i++) {
+        const ch = original[i];
+        out += (i < settled || ch === ' ') ? ch : GLYPHS[(Math.random() * GLYPHS.length) | 0];
+      }
+      el.textContent = (p < 1) ? out : original;
+      if (p < 1) requestAnimationFrame(fr);
+    })(t0);
+  }
+
+  /* ── Scroll-reveal with IntersectionObserver (gated on boot) ──
+     Note: .reveal-clip starts with clip-path: inset(0 0 100% 0) — fully
+     clipped. On WebKit/mobile, IntersectionObserver often uses the clipped
+     (zero-area) box, so isIntersecting never becomes true and the portrait
+     stays permanently hidden. We still observe for progressive enhancement,
+     but always fall back to a geometry-based reveal for .reveal-clip. */
+  function markRevealed(el) {
+    if (!el || el.classList.contains('revealed')) return;
+    el.classList.add('revealed');
+    if (el.hasAttribute('data-scramble')) scramble(el);
+    el.querySelectorAll('[data-scramble]').forEach(scramble);
+  }
+
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        revealObserver.unobserve(entry.target);
-      }
+      if (!entry.isIntersecting) return;
+      markRevealed(entry.target);
+      revealObserver.unobserve(entry.target);
     });
-  }, { threshold: 0.12 });
-  revealEls.forEach(el => revealObserver.observe(el));
+  }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
 
+  function revealClipByGeometry(el) {
+    if (el.classList.contains('revealed')) return true;
+    const b = el.getBoundingClientRect();
+    // Use layout box (not clipped paint box). Reveal when near the viewport.
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    if (b.height < 1 && b.width < 1) return false;
+    if (b.top < vh * 0.96 && b.bottom > vh * 0.02) {
+      markRevealed(el);
+      return true;
+    }
+    return false;
+  }
+
+  boot.then(() => {
+    document.querySelectorAll('.reveal-item, .reveal-clip, .hn-line, .sh-line')
+      .forEach(el => revealObserver.observe(el));
+
+    const clips = Array.from(document.querySelectorAll('.reveal-clip'));
+    if (!clips.length) return;
+
+    // Hero portrait is above the fold on desktop and just below on mobile —
+    // always schedule a reveal shortly after the curtain lifts so the entrance
+    // animation still plays, even if IO never fires.
+    const heroPortrait = document.querySelector('.hero-portrait.reveal-clip');
+    if (heroPortrait) {
+      setTimeout(() => markRevealed(heroPortrait), reduce ? 0 : 320);
+    }
+
+    // Geometry failsafe for any other / late-layout clip targets (iOS Safari)
+    const pollClips = () => {
+      let pending = 0;
+      clips.forEach(el => {
+        if (el.classList.contains('revealed')) return;
+        if (!revealClipByGeometry(el)) pending++;
+      });
+      return pending;
+    };
+    pollClips();
+    let tries = 0;
+    const clipTimer = setInterval(() => {
+      tries++;
+      if (pollClips() === 0 || tries > 40) clearInterval(clipTimer);
+    }, 250);
+    window.addEventListener('scroll', pollClips, { passive: true });
+    window.addEventListener('resize', pollClips, { passive: true });
+  });
+
+  /* ── Stagger choreography ── */
   document.querySelectorAll('.cap-grid, .cred-grid, .approach-grid, .profile-glance').forEach(parent => {
     const children = parent.querySelectorAll('.reveal-item, .glance-item, .approach-card');
     children.forEach((el, i) => el.style.transitionDelay = `${i * 80}ms`);
   });
+  document.querySelectorAll('.hero-content .reveal-item').forEach((el, i) => {
+    el.style.transitionDelay = `${520 + i * 90}ms`;
+  });
+  const heroStats = document.querySelector('.hero-stats');
+  if (heroStats) heroStats.style.transitionDelay = '950ms';
+
+  /* ── Chapter rail: active section tracking ── */
+  const railLinks = Array.from(document.querySelectorAll('.rail a'));
+  if (railLinks.length && "IntersectionObserver" in window) {
+    const byId = new Map();
+    railLinks.forEach(a => byId.set(a.getAttribute('href').slice(1), a));
+    const railIO = new IntersectionObserver(es => {
+      es.forEach(e => {
+        const link = byId.get(e.target.id);
+        if (!link || !e.isIntersecting) return;
+        railLinks.forEach(x => x.classList.remove('active'));
+        link.classList.add('active');
+      });
+    }, { rootMargin: '-42% 0px -42% 0px' });
+    byId.forEach((_, id) => { const s = document.getElementById(id); if (s) railIO.observe(s); });
+  }
+
+  /* ── Statement: word-by-word opacity scrub ── */
+  const stEl = document.getElementById('statementText');
+  if (stEl && hasGSAP && !reduce) {
+    const words = [];
+    (function walk(node) {
+      Array.from(node.childNodes).forEach(child => {
+        if (child.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          child.textContent.split(/(\s+)/).forEach(part => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+            const s = document.createElement('span');
+            s.className = 'w';
+            s.textContent = part;
+            frag.appendChild(s);
+            words.push(s);
+          });
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === 1) walk(child);
+      });
+    })(stEl);
+    gsap.set(words, { opacity: 0.13 });
+    gsap.to(words, {
+      opacity: 1, ease: 'none', stagger: 0.045,
+      scrollTrigger: { trigger: stEl, start: 'top 80%', end: 'bottom 45%', scrub: 0.6 }
+    });
+  }
 
   /* ── Research card drag-scroll (don't steal clicks on links) ── */
   const hscroll = document.querySelector('.research-hscroll');
@@ -735,6 +1039,7 @@
   }
 
   if (hasGSAP) {
+    boot.then(() => ScrollTrigger.refresh());
     window.addEventListener('load', () => ScrollTrigger.refresh());
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ScrollTrigger.refresh());
   }
@@ -753,6 +1058,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const hasGSAP = typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined";
+  const boot = window.__boot || Promise.resolve();
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const smoothstep = (e0, e1, x) => { const t = clamp((x - e0) / (e1 - e0), 0, 1); return t * t * (3 - 2 * t); };
 
@@ -801,8 +1107,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
   /* Stylised 3D brain: rejection-sampled points inside a bumpy two-lobed
      ellipsoid, with a narrow brainstem stub hanging below so the spine can
-     visibly plug into it. Fully procedural — no downloaded model, no
-     Higgsfield, no paid asset generation. */
+     visibly plug into it. Fully procedural — no downloaded model. */
   function buildBrainPoints(count, radius, seed) {
     const rand = mulberry32(seed);
     const pts = [];
@@ -913,7 +1218,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
     camera.position.set(0, 0, 7);
 
     const group = new THREE.Group();
-    group.position.set(1.35, 0.1, 0); // biased toward the text column, away from the portrait
+    group.position.set(-1.15, 0.15, 0); // biased toward the text column, away from the portrait
     scene.add(group);
 
     const density = reduce ? 50 : (isMobile ? 80 : 130);
@@ -921,6 +1226,26 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
     const edges = buildEdges(pts, 2);
     group.add(makePointCluster(pts, { size: 0.075, opacity: 0.8, color: 0x7ff4e8 }));
     group.add(makeEdgeLines(pts, edges, { opacity: 0.15, color: 0x2fd8c9 }));
+
+    /* Synapse pulses: glowing packets travelling along random edges,
+       brightening mid-journey (vertex colour ≈ alpha under additive blending). */
+    const pulseN = reduce ? 0 : (isMobile ? 10 : 22);
+    let pulseGeo = null, pulseIdx = null;
+    if (pulseN) {
+      const randP = mulberry32(77);
+      pulseIdx = [];
+      for (let i = 0; i < pulseN; i++) {
+        pulseIdx.push({ e: (randP() * edges.length) | 0, sp: 0.22 + randP() * 0.5, ph: randP() });
+      }
+      pulseGeo = new THREE.BufferGeometry();
+      pulseGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(pulseN * 3), 3));
+      pulseGeo.setAttribute('color', new THREE.BufferAttribute(new Float32Array(pulseN * 3), 3));
+      const pulseMat = new THREE.PointsMaterial({
+        size: 0.14, map: glowSprite, alphaTest: 0.01, transparent: true,
+        vertexColors: true, blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true
+      });
+      group.add(new THREE.Points(pulseGeo, pulseMat));
+    }
 
     function resize() {
       const w = canvas.clientWidth, h = canvas.clientHeight;
@@ -951,8 +1276,11 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
     }
 
     if (hasGSAP) {
-      gsap.fromTo(group.scale, { x: 0.001, y: 0.001, z: 0.001 }, { x: 1, y: 1, z: 1, duration: 2, ease: 'power3.out', delay: 0.3 });
-      gsap.fromTo(group.rotation, { y: -1.1 }, { y: -0.35, duration: 2.2, ease: 'power3.out', delay: 0.3 });
+      group.scale.setScalar(0.001);
+      boot.then(() => {
+        gsap.fromTo(group.scale, { x: 0.001, y: 0.001, z: 0.001 }, { x: 1, y: 1, z: 1, duration: 2, ease: 'power3.out', delay: 0.25 });
+        gsap.fromTo(group.rotation, { y: -1.1 }, { y: -0.35, duration: 2.2, ease: 'power3.out', delay: 0.25 });
+      });
     } else {
       group.rotation.y = -0.35;
     }
@@ -963,7 +1291,24 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
       tiltY += (tiltYT - tiltY) * 0.05;
       group.rotation.y += 0.0016 + tiltX * 0.01;
       group.rotation.x = tiltY * 0.35 + Math.sin(t * 0.18) * 0.03;
-      group.position.y = 0.1 + Math.sin(t * 0.3) * 0.12;
+      group.position.y = 0.15 + Math.sin(t * 0.3) * 0.12;
+      if (pulseGeo) {
+        const pa = pulseGeo.attributes.position.array;
+        const pc = pulseGeo.attributes.color.array;
+        for (let i = 0; i < pulseN; i++) {
+          const P = pulseIdx[i];
+          const e = edges[P.e];
+          const tt = (t * P.sp + P.ph) % 1;
+          const a = pts[e[0]], b = pts[e[1]];
+          pa[i * 3]     = a.x + (b.x - a.x) * tt;
+          pa[i * 3 + 1] = a.y + (b.y - a.y) * tt;
+          pa[i * 3 + 2] = a.z + (b.z - a.z) * tt;
+          const s = Math.sin(tt * Math.PI);
+          pc[i * 3] = 0.55 * s; pc[i * 3 + 1] = 1.0 * s; pc[i * 3 + 2] = 0.92 * s;
+        }
+        pulseGeo.attributes.position.needsUpdate = true;
+        pulseGeo.attributes.color.needsUpdate = true;
+      }
       renderer.render(scene, camera);
     });
   })();
@@ -1019,15 +1364,15 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
   /* ══════════════════ THE SIGNAL — 3D spine → brain scroll film ═══════════
      A true 3D spine (a Catmull-Rom curve, not a flat 2D path) carries
      vertebra points and branching nerve lines. The camera itself dollies
-     along that curve as the user scrolls — the parallax and depth this
-     produces is the whole point of going 3D; a flat canvas can only fake
-     it. Bloom runs through EffectComposer since this canvas is opaque. */
+     along that curve as the user scrolls. Bloom runs through EffectComposer
+     since this canvas is opaque. */
   (function initSignal3D() {
     const section = document.getElementById('film');
     const canvas = document.getElementById('filmCanvas');
     if (!section || !canvas) return;
     const stage = canvas.closest('.film-stage');
     const caps = Array.from(document.querySelectorAll('#filmCaps .film-cap'));
+    const railFill = document.getElementById('filmRailFill');
 
     const renderer = new THREE.WebGLRenderer({
       canvas,
@@ -1059,6 +1404,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
     scene.add(new THREE.Mesh(cordGeo, cordMat));
 
     // vertebra nodes — per-vertex colour so each lights independently as the pulse passes
+    // slightly larger on mobile (lower DPR + thinner points read dull without oversampling)
     const vertGeo = new THREE.BufferGeometry();
     const vertPos = new Float32Array(spinePts.length * 3);
     const vertCol = new Float32Array(spinePts.length * 3);
@@ -1066,7 +1412,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
     vertGeo.setAttribute('position', new THREE.BufferAttribute(vertPos, 3));
     vertGeo.setAttribute('color', new THREE.BufferAttribute(vertCol, 3));
     const vertMat = new THREE.PointsMaterial({
-      size: 0.16, map: glowSprite, alphaTest: 0.01, transparent: true,
+      size: isMobile ? 0.22 : 0.16, map: glowSprite, alphaTest: 0.01, transparent: true,
       vertexColors: true, blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true
     });
     const vertPoints = new THREE.Points(vertGeo, vertMat);
@@ -1101,7 +1447,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
     const brainPts = buildBrainPoints(reduce ? 70 : (isMobile ? 100 : 170), brainRadius, 99);
     const brainEdges = buildEdges(brainPts, 2);
     const brainGroup = new THREE.Group();
-    const brainPointsObj = makePointCluster(brainPts, { size: 0.05, opacity: 0, color: 0x7ff4e8 });
+    const brainPointsObj = makePointCluster(brainPts, { size: isMobile ? 0.07 : 0.05, opacity: 0, color: 0x7ff4e8 });
     const brainLinesObj = makeEdgeLines(brainPts, brainEdges, { opacity: 0, color: 0x2fd8c9 });
     brainGroup.add(brainPointsObj, brainLinesObj);
     const spineTop = spineCurve.getPointAt(1);
@@ -1113,18 +1459,27 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
     const cloudPts = [];
     const cloudCount = reduce ? 20 : (isMobile ? 35 : 60);
     for (let i = 0; i < cloudCount; i++) cloudPts.push(new THREE.Vector3((rand() * 2 - 1) * 6, (rand() * 2 - 1) * 8 - 2, (rand() * 2 - 1) * 5 - 3));
-    scene.add(makePointCluster(cloudPts, { size: 0.05, opacity: 0.14, color: 0x7ff4e8 }));
+    scene.add(makePointCluster(cloudPts, { size: isMobile ? 0.07 : 0.05, opacity: 0.14, color: 0x7ff4e8 }));
 
-    // bloom post-processing — lighter on mobile; safe since this canvas is opaque
-    const useBloom = !isMobile;
+    // bloom post-processing — this is the "illumination" look. Previously disabled
+    // entirely on mobile (useBloom = !isMobile), so phone / DevTools device mode
+    // rendered flat dim points with no glow. Enable everywhere; use cheaper
+    // params + lower composer pixel ratio on mobile for fill-rate.
     let composer = null;
     let bloom = null;
-    if (useBloom) {
+    try {
       composer = new EffectComposer(renderer);
       composer.addPass(new RenderPass(scene, camera));
-      bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 1.05, 0.55, 0.18);
+      const strength = isMobile ? 0.9 : 1.05;
+      const radius = isMobile ? 0.42 : 0.55;
+      const threshold = isMobile ? 0.2 : 0.18;
+      bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), strength, radius, threshold);
       composer.addPass(bloom);
       composer.addPass(new OutputPass());
+    } catch (e) {
+      // rare: MRT / float RT unsupported — fall back to raw renderer
+      composer = null;
+      bloom = null;
     }
 
     function resize() {
@@ -1132,7 +1487,11 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
       if (!w || !h) return;
       renderer.setPixelRatio(maxDpr);
       renderer.setSize(w, h, false);
-      if (composer) composer.setSize(w, h);
+      if (composer) {
+        // half-res bloom passes on mobile keeps the glow without tanking FPS
+        composer.setPixelRatio(isMobile ? Math.min(maxDpr, 1) : maxDpr);
+        composer.setSize(w, h);
+      }
       camera.aspect = w / h; camera.updateProjectionMatrix();
     }
     resize();
@@ -1210,8 +1569,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
     if (!hasGSAP) {
       // No GSAP/ScrollTrigger -> can't drive by scroll. Render a static framed
-      // view and show only the closing caption. (reduced-motion still gets the
-      // full scroll-driven scene below -- the user controls it, so it stays.)
+      // view and show only the closing caption.
       caps.forEach((c, i) => {
         const isLast = i === caps.length - 1;
         c.style.display = isLast ? 'block' : 'none';
@@ -1227,6 +1585,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
       onUpdate: self => {
         filmProgress = self.progress;
         const p = filmProgress;
+        if (railFill) railFill.style.transform = 'scaleY(' + p + ')';
         for (const c of caps) {
           const a = parseFloat(c.dataset.a), b = parseFloat(c.dataset.b);
           const mid = (a + b) / 2;
@@ -1240,6 +1599,8 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
     registerTick(t => place(filmProgress, t));
   })();
+
+  if (hasGSAP) boot.then(() => ScrollTrigger.refresh());
 })();
 </script>
 </body>
